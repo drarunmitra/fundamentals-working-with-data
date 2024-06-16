@@ -1,7 +1,7 @@
 {
     "id": "39B0BF0B",
-    "path": "C:/Users/Arun/Dropbox/PhD/Workshops/AIIMS_Kalyani/materials/NWHDA_Kalyani/sessions/Working_with_Data_Session/Session3.Rmd",
-    "project_path": "Session3.Rmd",
+    "path": "C:/Users/Arun/Dropbox/PhD/Workshops/AIIMS_Kalyani/materials/NWHDA_Kalyani/sessions/Working_with_Data_Session/index.Rmd",
+    "project_path": "index.Rmd",
     "type": "r_markdown",
     "hash": "3784576538",
     "contents": "",
@@ -16,11 +16,11 @@
         "scrollLine": "0"
     },
     "folds": "",
-    "lastKnownWriteTime": 1718509565,
+    "lastKnownWriteTime": 1718509813,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1718509565097,
+    "last_content_update": 1718509813226,
     "read_only": false,
     "read_only_alternatives": []
 }

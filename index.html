@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Exploring Data with R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="   Dr. Arun Mitra" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Exploring Data with R
+]
+.subtitle[
+## Day 2: RIntro2024
+]
+.author[
+### <img src="RIntro2024.png" style="height:2in" /> <br> Dr. Arun Mitra
+]
+.institute[
+### Introduction to Health Data Science using R
+]
+
+---
+
+class: center middle
+
+
+
+
+# Important!!! R is Case Sensitive. 
+
+
+.center[![:scale 80%](case_sensitive2.png)]
+
+---
+
+class: inverse middle
+
+# Outline of the talk
+
+- What is EDA?
+
+- Generate questions about your data.
+
+- Search for answers by visualising, transforming your data.
+
+- Live Demo Session
+
+
+---
+
+
+
+
+# What is EDA?
+
+### Exploratory Data Analysis
+
+
+.pull-left[
+- **EDA** is the critical first step.
+
+- **EDA** is a state of mind. 
+
+- **EDA** is exploring your ideas.
+
+- **EDA** has no strict rules.
+
+- **EDA** helps understand your data.
+
+- **EDA** is an iterative cycle.
+
+- **EDA** is a creative process.
+
+
+]
+
+.pull-right[
+![:scale 90%](EDA.png)
+]
+
+---
+class: middle
+
+# What is EDA?
+
+It  is  mostly  a  **philosophy**  of  data analysis where the researcher examines the data without any pre-conceived ideas  in  order  to  discover what  the  data  can  tell  him  or  her  about the phenomena  being  studied.  
+
+.left[*"detective work – numerical detective work – or counting detective work – or graphical detective  work"*]
+
+.right[— **Tukey,  1977** *Page 1, Exploratory Data Analysis*]
+
+---
+
+# Questions
+
+### The easiest way to do **EDA** is to use questions as tools to guide your investigation. 
+
+### **EDA** is an important part of any data analysis, even if the questions are known already.
+
+
+.left[*"There are no routine statistical questions, only questionable statistical routines."*]
+
+.right[— **Sir David Cox**]
+
+
+.left[*"Far better an approximate answer to the right question, which is often vague, than an exact answer to the wrong question, which can always be made precise."*]
+
+.right[— **John Tukey**]
+
+
+---
+class: middle
+
+# Asking the right questions
+
+Key to asking **_quality_** questions is to generate a large **_quantity_** of questions.
+
+It is difficult to ask revealing questions at the start of the analysis.
+
+But, each new question will expose a new aspect and increase your chance of making a discovery.
+
+### Questions to ask:
+
+
+- What type of variation occurs within your variables?
+
+- What type of covariation occurs between your variables?
+
+- Whether your data meets your expectations or not. 
+
+- Whether the quality of your data is robust or not.
+
+---
+# The process of EDA - **Iterative**
+
+.center[![:scale 90%](data_exploration1.png)]
+1. Import
+2. Tidy
+3. Explore
+  - Transform
+  - Visualize
+  - Transform 
+  - Visualise ...
+  - ... 
+  
+
+---
+
+class: inverse 
+
+# What did we cover till now?
+
+### Concepts
+
+- Health Data Science
+- Reproducible Research
+- Tidy Data 
+
+### How to Visualize Data
+- `ggplot2`
+
+### How to Import Data
+- `rio::import()`
+- `here::here()` 
+
+---
+
+class: middle
+
+# What will be covered now?
+
+### Preparing Tidy Data
+- Data Cleaning
+- Data Wrangling
+
+### Data Exploration
+- Data Transformation
+- Data Visualization
+
+---
+
+class:  middle
+
+# Before we get started
+
+### To recap what we learnt in the previous sessions.. 
+
+- We now know to work within the R Project environment. 
+
+
+- `here::here()` makes it easy for us to manage file paths. 
+
+- You can quickly have a look at your data using the `View()` and `glimpse()` functions. 
+
+
+- Most of the tidy data is read as `tibble` which is a workhorse of `tidyverse`.
+
+---
+
+# Getting Started with the Data Exploration Pipeline
+
+## Step Zero: Get your documents and data in place.
+
+### - Today we will be working in a Quarto Document (`.qmd`). 
+
+### - Quarto interweaves prose with code. 
+
+### - Please download the `.qmd` file provided to you via email and place it in the `reports` folder of your working directory.
+
+
+---
+
+
+
+## `dplyr` Package
+
+.left-column[
+The `dplyr` is a powerful R-package to manipulate, clean and summarize unstructured data. 
+
+In short, it makes data exploration and data manipulation easy and fast in R. 
+]
+
+.right-column[
+![](dplyr.png)
+
+]
+---
+
+# Verbs of the `dplyr`
+
+.left-column[
+There are many verbs in `dplyr` that are useful.
+]
+
+.right-column[
+.center[![:scale 60%](dplyr_fns.JPG)]
+]
+---
+# Syntax of the `dplyr` verbs
+
+![](dplyr-verb.png)
+
+---
+
+
+# Getting used to the pipe ( `|&gt;` ) operator
+
+.left-column[
+- The pipe `|&gt;` means **THEN**...
+
+- The pipe is an operator in R that allows you to chain together functions in `dplyr`.
+]
+
+.right-column[
+![:scale 100%](dplyr-pipe.png)
+]
+
+
+---
+
+
+## Lets load some sample data
+
+
+
+.pull-left[
+
+```r
+library(tidyverse)
+library(here)
+library(rio)
+
+filepath &lt;- here('data', "who_tubercolosis_data.csv")
+
+tb &lt;- filepath |&gt; import(setclass = 'tibble')
+
+tb
+```
+]
+
+
+
+.pull-right[
+
+```
+## # A tibble: 3,850 × 18
+##    country   who_region  year    pop incidence_100k incidence_number hiv_percent
+##    &lt;chr&gt;     &lt;chr&gt;      &lt;int&gt;  &lt;int&gt;          &lt;dbl&gt;            &lt;int&gt;       &lt;dbl&gt;
+##  1 Afghanis… EMR         2000 2.01e7            190            38000        0.36
+##  2 Afghanis… EMR         2001 2.10e7            189            40000        0.3 
+##  3 Afghanis… EMR         2002 2.20e7            189            42000        0.26
+##  4 Afghanis… EMR         2003 2.31e7            189            44000        0.23
+##  5 Afghanis… EMR         2004 2.41e7            189            46000        0.22
+##  6 Afghanis… EMR         2005 2.51e7            189            47000        0.22
+##  7 Afghanis… EMR         2006 2.59e7            189            49000        0.22
+##  8 Afghanis… EMR         2007 2.66e7            189            50000        0.23
+##  9 Afghanis… EMR         2008 2.73e7            189            52000        0.23
+## 10 Afghanis… EMR         2009 2.80e7            189            53000        0.24
+## # ℹ 3,840 more rows
+## # ℹ 11 more variables: hiv_incidence_100k &lt;dbl&gt;, hiv_number &lt;int&gt;,
+## #   mort_nohiv_100k &lt;dbl&gt;, mort_nohiv_number &lt;int&gt;, mort_hiv_100k &lt;dbl&gt;,
+## #   mort_hiv_number &lt;int&gt;, mort_100k &lt;dbl&gt;, mort_number &lt;int&gt;,
+## #   case_fatality_ratio &lt;dbl&gt;, new_incidence_100k &lt;dbl&gt;,
+## #   case_detection_percent &lt;dbl&gt;
+```
+
+]
+
+
+
+---
+
+.left-column[
+
+```r
+tb |&gt; glimpse()
+```
+]
+
+
+
+.right-column[
+
+```
+## Rows: 3,850
+## Columns: 18
+## $ country                &lt;chr&gt; "Afghanistan", "Afghanistan", "Afghanistan", "A…
+## $ who_region             &lt;chr&gt; "EMR", "EMR", "EMR", "EMR", "EMR", "EMR", "EMR"…
+## $ year                   &lt;int&gt; 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007,…
+## $ pop                    &lt;int&gt; 20093756, 20966463, 21979923, 23064851, 2411897…
+## $ incidence_100k         &lt;dbl&gt; 190, 189, 189, 189, 189, 189, 189, 189, 189, 18…
+## $ incidence_number       &lt;int&gt; 38000, 40000, 42000, 44000, 46000, 47000, 49000…
+## $ hiv_percent            &lt;dbl&gt; 0.36, 0.30, 0.26, 0.23, 0.22, 0.22, 0.22, 0.23,…
+## $ hiv_incidence_100k     &lt;dbl&gt; 0.68, 0.57, 0.49, 0.44, 0.41, 0.42, 0.42, 0.43,…
+## $ hiv_number             &lt;int&gt; 140, 120, 110, 100, 100, 100, 110, 120, 120, 13…
+## $ mort_nohiv_100k        &lt;dbl&gt; 67.00, 62.00, 56.00, 57.00, 51.00, 46.00, 42.00…
+## $ mort_nohiv_number      &lt;int&gt; 14000, 13000, 12000, 13000, 12000, 12000, 11000…
+## $ mort_hiv_100k          &lt;dbl&gt; 0.15, 0.17, 0.27, 0.25, 0.21, 0.19, 0.18, 0.17,…
+## $ mort_hiv_number        &lt;int&gt; 31, 35, 60, 57, 50, 48, 46, 45, 48, 55, 56, 61,…
+## $ mort_100k              &lt;dbl&gt; 67.00, 62.00, 56.00, 57.00, 51.00, 46.00, 42.00…
+## $ mort_number            &lt;int&gt; 14000, 13000, 12000, 13000, 12000, 12000, 11000…
+## $ case_fatality_ratio    &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ new_incidence_100k     &lt;dbl&gt; 35, 48, 63, 60, 76, 87, 98, 108, 104, 93, 97, 9…
+## $ case_detection_percent &lt;dbl&gt; 19, 26, 33, 32, 40, 46, 52, 57, 55, 49, 51, 50,…
+```
+
+]
+
+---
+
+# Let's look at the `head()` 
+
+.left-column[
+
+```r
+head(tb)
+```
+]
+
+.right-column[
+
+```
+## # A tibble: 6 × 18
+##   country    who_region  year    pop incidence_100k incidence_number hiv_percent
+##   &lt;chr&gt;      &lt;chr&gt;      &lt;int&gt;  &lt;int&gt;          &lt;dbl&gt;            &lt;int&gt;       &lt;dbl&gt;
+## 1 Afghanist… EMR         2000 2.01e7            190            38000        0.36
+## 2 Afghanist… EMR         2001 2.10e7            189            40000        0.3 
+## 3 Afghanist… EMR         2002 2.20e7            189            42000        0.26
+## 4 Afghanist… EMR         2003 2.31e7            189            44000        0.23
+## 5 Afghanist… EMR         2004 2.41e7            189            46000        0.22
+## 6 Afghanist… EMR         2005 2.51e7            189            47000        0.22
+## # ℹ 11 more variables: hiv_incidence_100k &lt;dbl&gt;, hiv_number &lt;int&gt;,
+## #   mort_nohiv_100k &lt;dbl&gt;, mort_nohiv_number &lt;int&gt;, mort_hiv_100k &lt;dbl&gt;,
+## #   mort_hiv_number &lt;int&gt;, mort_100k &lt;dbl&gt;, mort_number &lt;int&gt;,
+## #   case_fatality_ratio &lt;dbl&gt;, new_incidence_100k &lt;dbl&gt;,
+## #   case_detection_percent &lt;dbl&gt;
+```
+]
+---
+
+
+# Let's look at the `names()` 
+
+.left-column[
+
+```r
+dim(tb)
+
+
+names(tb)
+```
+]
+
+
+.right-column[
+
+
+```
+## [1] 3850   18
+```
+
+```
+##  [1] "country"                "who_region"             "year"                  
+##  [4] "pop"                    "incidence_100k"         "incidence_number"      
+##  [7] "hiv_percent"            "hiv_incidence_100k"     "hiv_number"            
+## [10] "mort_nohiv_100k"        "mort_nohiv_number"      "mort_hiv_100k"         
+## [13] "mort_hiv_number"        "mort_100k"              "mort_number"           
+## [16] "case_fatality_ratio"    "new_incidence_100k"     "case_detection_percent"
+```
+]
+
+---
+
+
+## Let's look at the different countries
+
+### Find the unique countries in the bottom 50 rows of tb.
+
+.pull-left[
+
+```r
+# without the pipe
+unique(tail(tb, n = 50)$country)
+
+# with the pipe
+tb %&gt;% 
+  tail(50) %&gt;%
+  distinct(country)
+```
+]
+
+
+.pull-right[
+
+```
+## [1] "Yemen"    "Zambia"   "Zimbabwe"
+```
+
+```
+## # A tibble: 3 × 1
+##   country 
+##   &lt;chr&gt;   
+## 1 Yemen   
+## 2 Zambia  
+## 3 Zimbabwe
+```
+]
+
+---
+class: middle 
+
+##  `distinct()` and `count()`
+
+The `distinct()` function will return the distinct values of a column, while `count()` provides both the distinct values of a column and then number of times each value shows up. 
+
+
+.pull-left[
+
+```r
+tb %&gt;% 
+  distinct(who_region) 
+```
+
+
+
+```
+## # A tibble: 6 × 1
+##   who_region
+##   &lt;chr&gt;     
+## 1 EMR       
+## 2 EUR       
+## 3 AFR       
+## 4 WPR       
+## 5 AMR       
+## 6 SEA
+```
+
+]
+
+.pull-right[
+
+```r
+tb %&gt;% 
+  count(who_region)
+```
+
+
+
+```
+## # A tibble: 6 × 2
+##   who_region     n
+##   &lt;chr&gt;      &lt;int&gt;
+## 1 AFR          835
+## 2 AMR          808
+## 3 EMR          396
+## 4 EUR          967
+## 5 SEA          196
+## 6 WPR          648
+```
+
+
+]
+
+Notice that there is a new column produced by the count function called `n`.
+
+
+---
+
+class:middle
+
+##  `arrange()`
+
+The `arrange()` function does what it sounds like. It takes a data frame or tbl and arranges (or sorts) by column(s) of interest. 
+
+The first argument is the data, and subsequent arguments are columns to sort on.
+
+Use the `desc()` function to arrange by descending.
+
+.pull-left[
+
+```r
+tb %&gt;% 
+  count(who_region) %&gt;% 
+  arrange(n)
+```
+
+
+
+```
+## # A tibble: 6 × 2
+##   who_region     n
+##   &lt;chr&gt;      &lt;int&gt;
+## 1 SEA          196
+## 2 EMR          396
+## 3 WPR          648
+## 4 AMR          808
+## 5 AFR          835
+## 6 EUR          967
+```
+
+]
+
+.pull-right[
+
+```r
+tb %&gt;% 
+  count(who_region) %&gt;% 
+  arrange(-n) # use can also use  arrange(desc(n))
+```
+
+
+
+```
+## # A tibble: 6 × 2
+##   who_region     n
+##   &lt;chr&gt;      &lt;int&gt;
+## 1 EUR          967
+## 2 AFR          835
+## 3 AMR          808
+## 4 WPR          648
+## 5 EMR          396
+## 6 SEA          196
+```
+
+
+]
+
+
+
+##  `filter()`
+
+If you want to return **rows** of the data where some criteria are met, use the `filter()` function.
+
+This is how we subset in the tidyverse. (Base R function is `subset()`)
+
+
+
+![:scale 90%](dplyr_filter.png)
+
+
+---
+
+
+
+## Logical Operators in R
+
+.pull-left[
+If you want to satisfy *all* of multiple conditions, you can use the "and" operator, `&amp;`. 
+
+The "or" operator `|` (the vertical pipe character, shift-backslash) will return a subset that meet *any* of the conditions.
+]
+
+.pull-right[
+
+
+![:scale 90%](LogicalOp.png)
+
+
+]
+
+
+---
+
+class: middle
+
+## Filter 2015 and above
+
+
+```r
+tb %&gt;% 
+  filter(year &gt;= 2015) 
+```
+
+
+
+```
+## # A tibble: 648 × 18
+##    country   who_region  year    pop incidence_100k incidence_number hiv_percent
+##    &lt;chr&gt;     &lt;chr&gt;      &lt;int&gt;  &lt;int&gt;          &lt;dbl&gt;            &lt;int&gt;       &lt;dbl&gt;
+##  1 Afghanis… EMR         2015 3.37e7          189              64000        0.3 
+##  2 Afghanis… EMR         2016 3.47e7          189              65000        0.31
+##  3 Afghanis… EMR         2017 3.55e7          189              67000        0.31
+##  4 Albania   EUR         2015 2.92e6           16                480        0.82
+##  5 Albania   EUR         2016 2.93e6           16                480        0.83
+##  6 Albania   EUR         2017 2.93e6           20                580        0.85
+##  7 Algeria   AFR         2015 3.99e7           74              30000        0.58
+##  8 Algeria   AFR         2016 4.06e7           70              29000        0.6 
+##  9 Algeria   AFR         2017 4.13e7           70              29000        0.62
+## 10 American… WPR         2015 5.55e4            8.3                5        0.1 
+## # ℹ 638 more rows
+## # ℹ 11 more variables: hiv_incidence_100k &lt;dbl&gt;, hiv_number &lt;int&gt;,
+## #   mort_nohiv_100k &lt;dbl&gt;, mort_nohiv_number &lt;int&gt;, mort_hiv_100k &lt;dbl&gt;,
+## #   mort_hiv_number &lt;int&gt;, mort_100k &lt;dbl&gt;, mort_number &lt;int&gt;,
+## #   case_fatality_ratio &lt;dbl&gt;, new_incidence_100k &lt;dbl&gt;,
+## #   case_detection_percent &lt;dbl&gt;
+```
+
+---
+
+
+class: middle
+
+## Filter India
+
+
+```r
+tb %&gt;% 
+  filter(country == "India") 
+```
+
+
+
+```
+## # A tibble: 18 × 18
+##    country who_region  year      pop incidence_100k incidence_number hiv_percent
+##    &lt;chr&gt;   &lt;chr&gt;      &lt;int&gt;    &lt;int&gt;          &lt;dbl&gt;            &lt;int&gt;       &lt;dbl&gt;
+##  1 India   SEA         2000   1.05e9            289          3040000         7  
+##  2 India   SEA         2001   1.07e9            288          3090000         7  
+##  3 India   SEA         2002   1.09e9            287          3130000         7  
+##  4 India   SEA         2003   1.11e9            285          3160000         7  
+##  5 India   SEA         2004   1.13e9            282          3180000         7  
+##  6 India   SEA         2005   1.14e9            279          3190000         7  
+##  7 India   SEA         2006   1.16e9            274          3180000         7  
+##  8 India   SEA         2007   1.18e9            268          3160000         7  
+##  9 India   SEA         2008   1.20e9            261          3130000         6.8
+## 10 India   SEA         2009   1.21e9            254          3090000         6.6
+## 11 India   SEA         2010   1.23e9            247          3050000         6.3
+## 12 India   SEA         2011   1.25e9            241          3000000         5.9
+## 13 India   SEA         2012   1.26e9            234          2960000         5.4
+## 14 India   SEA         2013   1.28e9            228          2920000         4.9
+## 15 India   SEA         2014   1.29e9            223          2880000         4.3
+## 16 India   SEA         2015   1.31e9            217          2840000         4  
+## 17 India   SEA         2016   1.32e9            211          2790000         3.3
+## 18 India   SEA         2017   1.34e9            204          2740000         3.1
+## # ℹ 11 more variables: hiv_incidence_100k &lt;dbl&gt;, hiv_number &lt;int&gt;,
+## #   mort_nohiv_100k &lt;dbl&gt;, mort_nohiv_number &lt;int&gt;, mort_hiv_100k &lt;dbl&gt;,
+## #   mort_hiv_number &lt;int&gt;, mort_100k &lt;dbl&gt;, mort_number &lt;int&gt;,
+## #   case_fatality_ratio &lt;dbl&gt;, new_incidence_100k &lt;dbl&gt;,
+## #   case_detection_percent &lt;dbl&gt;
+```
+
+
+
+
+
+---
+
+
+# Both India and 2015 or more recent
+
+
+```r
+tb %&gt;% 
+  filter(year &gt;= 2015 &amp; country == "India")
+```
+
+
+
+```
+## # A tibble: 3 × 18
+##   country who_region  year       pop incidence_100k incidence_number hiv_percent
+##   &lt;chr&gt;   &lt;chr&gt;      &lt;int&gt;     &lt;int&gt;          &lt;dbl&gt;            &lt;int&gt;       &lt;dbl&gt;
+## 1 India   SEA         2015    1.31e9            217          2840000         4  
+## 2 India   SEA         2016    1.32e9            211          2790000         3.3
+## 3 India   SEA         2017    1.34e9            204          2740000         3.1
+## # ℹ 11 more variables: hiv_incidence_100k &lt;dbl&gt;, hiv_number &lt;int&gt;,
+## #   mort_nohiv_100k &lt;dbl&gt;, mort_nohiv_number &lt;int&gt;, mort_hiv_100k &lt;dbl&gt;,
+## #   mort_hiv_number &lt;int&gt;, mort_100k &lt;dbl&gt;, mort_number &lt;int&gt;,
+## #   case_fatality_ratio &lt;dbl&gt;, new_incidence_100k &lt;dbl&gt;,
+## #   case_detection_percent &lt;dbl&gt;
+```
+
+
+
+---
+
+
+## `%in%` function
+
+To `filter()` a categorical variable for only certain levels, we can use the `%in%` operator.
+
+Let's see data from India, Nepal, Pakistan and Bangladesh First we will have to figure out how those are spelled in this dataset. 
+
+Open the spreadsheet viewer and find out. 
+
+We'll see a way to find them in code later on in the course.
+
+
+
+---
+
+## Indian Subcontinent
+
+
+
+
+```r
+indian_subcont &lt;- c("India",
+           "Nepal",
+           "Pakistan",
+           "Bangladesh", 
+           "Afghanistan")
+
+tb %&gt;% 
+  filter(country %in% indian_subcont) %&gt;%
+  distinct(country)
+```
+
+
+
+
+
+
+```
+## # A tibble: 5 × 1
+##   country    
+##   &lt;chr&gt;      
+## 1 Afghanistan
+## 2 Bangladesh 
+## 3 India      
+## 4 Nepal      
+## 5 Pakistan
+```
+
+
+
+---
+
+
+##  Other Useful Functions
+
+
+## `drop_na()`
+
+The `drop_na()` function is extremely useful for when we need to subset a variable to remove missing values.
+
+
+## `select()`
+
+Whereas the `filter()` function allows you to return only certain _rows_ matching a condition, the `select()` function returns only certain _columns_. The first argument is the data, and subsequent arguments are the columns you want.
+
+
+
+---
+
+
+
+## `summarize()`
+
+The `summarize()` function summarizes multiple values to a single value.
+
+On its own the `summarize()` function doesn't seem to be all that useful. 
+
+The dplyr package provides a few convenience functions called `n()` and `n_distinct()` that tell you the number of observations or the number of distinct values of a particular variable.
+
+
+`summarize()` is the same as `summarise()`
+
+
+```r
+tb %&gt;% 
+  summarize(mean_hiv_percent = mean(hiv_percent, na.rm = TRUE),
+            sd_hiv_percent = sd(hiv_percent, na.rm = TRUE))
+```
+
+
+
+```
+## # A tibble: 1 × 2
+##   mean_hiv_percent sd_hiv_percent
+##              &lt;dbl&gt;          &lt;dbl&gt;
+## 1             12.1           17.7
+```
+
+
+
+---
+
+
+## `group_by()`
+
+We saw that `summarize()` isn't that useful on its own. Neither is `group_by()`. 
+
+All this does is takes an existing data frame and converts it into a grouped data frame where operations are performed by group.
+
+
+
+
+```r
+tb %&gt;% 
+  group_by(year)
+```
+
+
+
+```
+## # A tibble: 3,850 × 18
+## # Groups:   year [18]
+##    country   who_region  year    pop incidence_100k incidence_number hiv_percent
+##    &lt;chr&gt;     &lt;chr&gt;      &lt;int&gt;  &lt;int&gt;          &lt;dbl&gt;            &lt;int&gt;       &lt;dbl&gt;
+##  1 Afghanis… EMR         2000 2.01e7            190            38000        0.36
+##  2 Afghanis… EMR         2001 2.10e7            189            40000        0.3 
+##  3 Afghanis… EMR         2002 2.20e7            189            42000        0.26
+##  4 Afghanis… EMR         2003 2.31e7            189            44000        0.23
+##  5 Afghanis… EMR         2004 2.41e7            189            46000        0.22
+##  6 Afghanis… EMR         2005 2.51e7            189            47000        0.22
+##  7 Afghanis… EMR         2006 2.59e7            189            49000        0.22
+##  8 Afghanis… EMR         2007 2.66e7            189            50000        0.23
+##  9 Afghanis… EMR         2008 2.73e7            189            52000        0.23
+## 10 Afghanis… EMR         2009 2.80e7            189            53000        0.24
+## # ℹ 3,840 more rows
+## # ℹ 11 more variables: hiv_incidence_100k &lt;dbl&gt;, hiv_number &lt;int&gt;,
+## #   mort_nohiv_100k &lt;dbl&gt;, mort_nohiv_number &lt;int&gt;, mort_hiv_100k &lt;dbl&gt;,
+## #   mort_hiv_number &lt;int&gt;, mort_100k &lt;dbl&gt;, mort_number &lt;int&gt;,
+## #   case_fatality_ratio &lt;dbl&gt;, new_incidence_100k &lt;dbl&gt;,
+## #   case_detection_percent &lt;dbl&gt;
+```
+
+
+---
+
+## Two variable `group_by()`
+
+
+```r
+tb %&gt;% 
+  group_by(year, who_region)
+```
+
+
+
+```
+## # A tibble: 3,850 × 18
+## # Groups:   year, who_region [108]
+##    country   who_region  year    pop incidence_100k incidence_number hiv_percent
+##    &lt;chr&gt;     &lt;chr&gt;      &lt;int&gt;  &lt;int&gt;          &lt;dbl&gt;            &lt;int&gt;       &lt;dbl&gt;
+##  1 Afghanis… EMR         2000 2.01e7            190            38000        0.36
+##  2 Afghanis… EMR         2001 2.10e7            189            40000        0.3 
+##  3 Afghanis… EMR         2002 2.20e7            189            42000        0.26
+##  4 Afghanis… EMR         2003 2.31e7            189            44000        0.23
+##  5 Afghanis… EMR         2004 2.41e7            189            46000        0.22
+##  6 Afghanis… EMR         2005 2.51e7            189            47000        0.22
+##  7 Afghanis… EMR         2006 2.59e7            189            49000        0.22
+##  8 Afghanis… EMR         2007 2.66e7            189            50000        0.23
+##  9 Afghanis… EMR         2008 2.73e7            189            52000        0.23
+## 10 Afghanis… EMR         2009 2.80e7            189            53000        0.24
+## # ℹ 3,840 more rows
+## # ℹ 11 more variables: hiv_incidence_100k &lt;dbl&gt;, hiv_number &lt;int&gt;,
+## #   mort_nohiv_100k &lt;dbl&gt;, mort_nohiv_number &lt;int&gt;, mort_hiv_100k &lt;dbl&gt;,
+## #   mort_hiv_number &lt;int&gt;, mort_100k &lt;dbl&gt;, mort_number &lt;int&gt;,
+## #   case_fatality_ratio &lt;dbl&gt;, new_incidence_100k &lt;dbl&gt;,
+## #   case_detection_percent &lt;dbl&gt;
+```
+
+
+---
+
+
+
+## `group_by()` and `summarize()` together
+
+The real power comes in where `group_by()` and `summarize()` are used together. First, write the `group_by()` statement. Then pipe the result to a call to `summarize()`.
+
+
+```r
+tb %&gt;% 
+  group_by(year) %&gt;% 
+  summarize(mean_inc = mean(incidence_100k, na.rm = TRUE),
+            sd_inc = sd(incidence_100k, na.rm = TRUE))
+```
+
+
+
+```
+## # A tibble: 18 × 3
+##     year mean_inc sd_inc
+##    &lt;int&gt;    &lt;dbl&gt;  &lt;dbl&gt;
+##  1  2000     138.   191.
+##  2  2001     138.   194.
+##  3  2002     140.   195.
+##  4  2003     141.   200.
+##  5  2004     139.   200.
+##  6  2005     137.   199.
+##  7  2006     135.   198.
+##  8  2007     132.   194.
+##  9  2008     129.   188.
+## 10  2009     127.   186.
+## 11  2010     124.   182.
+## 12  2011     120.   171.
+## 13  2012     116.   164.
+## 14  2013     113.   158.
+## 15  2014     109.   152.
+## 16  2015     107.   147.
+## 17  2016     104.   142.
+## 18  2017     101.   137.
+```
+
+
+---
+
+
+## `mutate()`
+.left-column[
+Mutate creates a new variable or modifies an existing one.
+]
+
+.right-column[
+
+![:scale 75%](dplyr_mutate.png)
+
+]
+
+
+---
+
+## `if_else()`
+
+Lets create a column called `ind_sub` if the country is in the Indian Subcontinent.
+
+
+
+```r
+tb %&gt;% 
+  mutate(indian_sub1 = if_else(country %in% indian_subcont, 
+                              "Indian Subcontinent", "Others")) %&gt;% 
+  select(country, indian_sub1) %&gt;% 
+  distinct()
+```
+
+
+
+```
+## # A tibble: 218 × 2
+##    country             indian_sub1        
+##    &lt;chr&gt;               &lt;chr&gt;              
+##  1 Afghanistan         Indian Subcontinent
+##  2 Albania             Others             
+##  3 Algeria             Others             
+##  4 American Samoa      Others             
+##  5 Andorra             Others             
+##  6 Angola              Others             
+##  7 Anguilla            Others             
+##  8 Antigua and Barbuda Others             
+##  9 Argentina           Others             
+## 10 Armenia             Others             
+## # ℹ 208 more rows
+```
+
+
+---
+
+
+## `case_when()`
+
+Alternative of `if_else()`
+
+![:scale 90%](case_when.jpg)
+
+
+---
+class: middle
+
+# `if_else()` vs `case_when()`
+
+Note that the `if_else()` function may result in slightly shorter code if you only need to code for 2 options. 
+
+For more options, nested `if_else()` statements become hard to read and could result in mismatched parentheses so `case_when()` will be a more elegant solution.
+
+
+---
+
+
+## `join()`
+
+.pull-left[
+Typically in a data science or data analysis project one would have to work with many sources of data. 
+
+The researcher must be able to combine multiple datasets to answer the questions he or she is interested in. 
+
+As with the other `dplyr` verbs, there are different families of verbs that are designed to work with relational data and one of the most commonly used family of verbs are the mutating joins.
+]
+
+.pull-right[
+
+![:scale 90%](dplyr_joins.jpg)
+]
+
+---
+
+## `join()`  
+
+- `left_join(x, y)` which combines all columns in data frame `x` with those in data frame `y` but only retains rows from `x`.
+
+- `right_join(x, y)` also keeps all columns but operates in the opposite direction, returning only rows from `y`.
+
+- `full_join(x, y)` combines all columns of `x` with all columns of `y` and retains all rows from both data frames.
+
+- `inner_join(x, y)` combines all columns present in either `x` or `y` but only retains rows that are present in both data frames.
+
+- `anti_join(x, y)` returns the columns from `x` only and retains rows of `x` that are not present in `y`.
+
+- `anti_join(y, x)` returns the columns from `y` only and retains rows of `y` that are not present in `x`.
+
+---
+
+## Visual representation of the `left_join()`
+
+
+![:scale 90%](dplyr_joins_left.png)
+
+---
+
+## Visual representation of the `right_join()`
+
+
+![:scale 90%](dplyr_joins_right.png)
+
+---
+
+## Visual representation of the `full_join()`
+
+
+![:scale 90%](dplyr_joins_full.png)
+
+---
+
+
+## `pivot()`
+
+.left-column[
+Most often, when working with our data we may have to reshape our data from long format to wide format and back. We can use the `pivot` family of functions to achieve this task.  
+]
+
+.right-column[
+![:scale 90%](long_wide.png)
+]
+---
+
+## `pivot()`
+
+
+![:scale 90%](tidyr_pivot.png)
+
+---
+
+# More Resources for `dplyr`
+
+
+
+- Check out the [Data Wrangling Cheatsheet](https://rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf) that covers dplyr and tidyr functions. 
+
+- Review the [Tibbles](https://r4ds.had.co.nz/tibbles.html) chapter of the excellent, free [**_R for Data Science_ book**](http://r4ds.had.co.nz).
+
+- Check out the [Transformations](https://r4ds.had.co.nz/transform.html) chapter to learn more about the `dplyr` package. Note that this chapter also uses the graphing package `ggplot2` which we have covered yesterday.
+
+
+---
+
+class: middle center hide-logo
+
+# Lets Begin!
+
+
+
+
+
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(RIntro2024.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 50px;
+  height: 50px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
