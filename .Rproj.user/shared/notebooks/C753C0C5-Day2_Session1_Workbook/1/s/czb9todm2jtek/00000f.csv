@@ -1,0 +1,17 @@
+"0",""
+"0","# This is going to be your file path using here"
+"0",""
+"0","file_path <- here::here(""data"", ""csv_data.csv"")"
+"0",""
+"0","# Loads Data"
+"0",""
+"0","df <- readr::read_csv(file_path)"
+"2","[1mRows: [22m[34m3055[39m [1mColumns: [22m[34m119[39m"
+"2","[36m──[39m [1mColumn specification[22m [36m────────────────────[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m (74): State, District, Rural, Stratu...
+[32mdbl[39m (41): Id, M Id, Client M Id, Hl Id, ...
+[33mlgl[39m  (4): M Expall Status, Field38, isde..."
+"2","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message."

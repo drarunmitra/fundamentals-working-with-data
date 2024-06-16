@@ -1,0 +1,42 @@
+"0","df %>% glimpse()"
+"1","Rows: 3,055"
+"1",""
+"1","
+"
+"1","Columns: 30"
+"1",""
+"1","
+"
+"1","$ state                           [3m[38;5;246m<chr>[39m[23m ""J…
+$ district                        [3m[38;5;246m<chr>[39m[23m ""D…
+$ rural                           [3m[38;5;246m<chr>[39m[23m ""R…
+$ deceased_sex                    [3m[38;5;246m<chr>[39m[23m ""M…
+$ date_of_death                   [3m[38;5;246m<dbl>[39m[23m 0,…
+$ month_of_death                  [3m[38;5;246m<dbl>[39m[23m 10…
+$ year_of_death                   [3m[38;5;246m<dbl>[39m[23m 20…
+$ age_of_death_below_one_month    [3m[38;5;246m<dbl>[39m[23m NA…
+$ age_of_death_below_eleven_month [3m[38;5;246m<dbl>[39m[23m NA…
+$ age_of_death_above_one_year     [3m[38;5;246m<dbl>[39m[23m 50…
+$ treatment_source                [3m[38;5;246m<chr>[39m[23m ""N…
+$ place_of_death                  [3m[38;5;246m<chr>[39m[23m ""A…
+$ is_death_reg                    [3m[38;5;246m<chr>[39m[23m ""N…
+$ is_death_certificate_received   [3m[38;5;246m<chr>[39m[23m ""0…
+$ death_symptoms                  [3m[38;5;246m<chr>[39m[23m NA…
+$ death_period                    [3m[38;5;246m<chr>[39m[23m NA…
+$ months_of_pregnancy             [3m[38;5;246m<dbl>[39m[23m NA…
+$ factors_contributing_death      [3m[38;5;246m<chr>[39m[23m NA…
+$ factors_contributing_death_2    [3m[38;5;246m<chr>[39m[23m NA…
+$ symptoms_of_death               [3m[38;5;246m<chr>[39m[23m NA…
+$ tim_bet_onset_complctn_n_death  [3m[38;5;246m<chr>[39m[23m NA…
+$ religion                        [3m[38;5;246m<chr>[39m[23m ""H…
+$ social_group_code               [3m[38;5;246m<chr>[39m[23m ""S…
+$ house_structure                 [3m[38;5;246m<chr>[39m[23m ""K…
+$ diagnosed_for                   [3m[38;5;246m<chr>[39m[23m ""N…
+$ diagnosis_source                [3m[38;5;246m<chr>[39m[23m NA…
+$ regular_treatment               [3m[38;5;246m<chr>[39m[23m NA…
+$ owner_status                    [3m[38;5;246m<chr>[39m[23m ""O…
+$ drinking_water_source           [3m[38;5;246m<chr>[39m[23m ""P…
+$ toilet_used                     [3m[38;5;246m<chr>[39m[23m ""o…"
+"1",""
+"1","
+"

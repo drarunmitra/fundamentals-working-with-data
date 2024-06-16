@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.529">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>exercise_day2_working_with_data_workbook</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="exercise_day2_working_with_data_workbook_files/libs/clipboard/clipboard.min.js"></script>
+<script src="exercise_day2_working_with_data_workbook_files/libs/quarto-html/quarto.js"></script>
+<script src="exercise_day2_working_with_data_workbook_files/libs/quarto-html/popper.min.js"></script>
+<script src="exercise_day2_working_with_data_workbook_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="exercise_day2_working_with_data_workbook_files/libs/quarto-html/anchor.min.js"></script>
+<link href="exercise_day2_working_with_data_workbook_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="exercise_day2_working_with_data_workbook_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="exercise_day2_working_with_data_workbook_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="exercise_day2_working_with_data_workbook_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="exercise_day2_working_with_data_workbook_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+
+<section id="data-for-the-clinical-anthropometric-and-biochemical-survey-2014" class="level2">
+<h2 class="anchored" data-anchor-id="data-for-the-clinical-anthropometric-and-biochemical-survey-2014">Data for the Clinical Anthropometric and Biochemical Survey 2014</h2>
+<p><a href="https://data.gov.in/search?title=cab%20survey" class="uri">https://data.gov.in/search?title=cab%20survey</a></p>
+<section id="details-about-the-cab-survey" class="level3">
+<h3 class="anchored" data-anchor-id="details-about-the-cab-survey">Details about the CAB Survey</h3>
+<ul>
+<li>Height/length and weight of all members of the household, women, men and children aged 1 month and above,</li>
+<li>Hb estimation of women, men and children aged 6 months and above,</li>
+<li>Blood pressure of all members of the household aged 18 years and above,</li>
+<li>Fasting blood glucose levels in all members of the household aged 18 years and above.</li>
+<li>Household salt testing for iodine content to assess access to iodised salt.</li>
+<li>In addition information on physiological status of woman, infant and young child feeding practices and morbidity at the time of survey was to be collected to correlate these factors with the nutritional status of the persons surveyed</li>
+</ul>
+</section>
+</section>
+<section id="step-1-load-packages" class="level2">
+<h2 class="anchored" data-anchor-id="step-1-load-packages">Step 1: Load Packages</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)  <span class="co"># for additional packages for tidy operations</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.3     ✔ readr     2.1.4
+✔ forcats   1.0.0     ✔ stringr   1.5.0
+✔ ggplot2   3.4.3     ✔ tibble    3.2.1
+✔ lubridate 1.8.0     ✔ tidyr     1.3.0
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)       <span class="co"># for organising file paths</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>here() starts at C:/Users/Arun/Dropbox/PhD/Workshops/AIIMS_Kalyani/materials/NWHDA_Kalyani/sessions/Working_with_Data_Session</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)        <span class="co"># for importing data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="step-2-load-data" class="level2">
+<h2 class="anchored" data-anchor-id="step-2-load-data">Step 2: Load Data</h2>
+<p>Create path to the file to read</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Create path to the file to read</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>filepath <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"ahs-cab2014-chhattisgarh-bastar(1).csv"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Import data using the `import` function, set class as `tibble`</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">import</span>(filepath, <span class="at">setclass =</span> <span class="st">"tibble"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="step-3-data-inspection" class="level2">
+<h2 class="anchored" data-anchor-id="step-3-data-inspection">Step 3: Data Inspection</h2>
+<section id="view-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="view-the-data">View the data</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a> df <span class="sc">|&gt;</span> <span class="fu">view</span>()</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5599   53</code></pre>
+</div>
+</div>
+</section>
+<section id="overview-of-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="overview-of-the-data">Overview of the data</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> <span class="fu">dim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5599   53</code></pre>
+</div>
+</div>
+</section>
+<section id="glimpse-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="glimpse-the-data">Glimpse the data</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 5,599
+Columns: 53
+$ state_code                      &lt;chr&gt; "CHHATTISGARH", "CHHATTISGARH", "CHHAT…
+$ district_code                   &lt;chr&gt; "BASTAR", "BASTAR", "BASTAR", "BASTAR"…
+$ rural_urban                     &lt;chr&gt; "Rural", "Rural", "Rural", "Rural", "R…
+$ stratum                         &lt;chr&gt; "200&lt;population&lt;2000", "200&lt;population…
+$ PSU_ID                          &lt;int&gt; 1522980, 1523116, 1522746, 1522483, 15…
+$ ahs_house_unit                  &lt;int&gt; 251, 251, 253, 253, 255, 255, 255, 255…
+$ house_hold_no                   &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
+$ date_survey                     &lt;chr&gt; "1/7/2014", "1/7/2014", "2/7/2014", "2…
+$ test_salt_iodine                &lt;int&gt; 30, 30, 30, 30, 30, 30, 30, 30, 30, 30…
+$ record_code_iodine              &lt;chr&gt; "More than or equal to 15 PPM", "More …
+$ record_code_iodine_reason       &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ sl_no                           &lt;int&gt; 5, 6, 1, 2, 1, 2, 3, 4, 1, 2, 3, 4, 5,…
+$ Sex                             &lt;chr&gt; "Male", "Male", "Male", "Female", "Mal…
+$ usual_residance                 &lt;chr&gt; "YES", "NO", "YES", "YES", "YES", "YES…
+$ usual_residance_Reason          &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ identification_code             &lt;int&gt; 930, 931, 938, 3798, 945, 946, 947, 94…
+$ Age_Code                        &lt;chr&gt; "Year", "Year", "Year", "Year", "Year"…
+$ Age                             &lt;int&gt; 14, 8, 45, 61, 39, 12, 10, 7, 44, 39, …
+$ date_of_birth                   &lt;int&gt; 15, 15, 15, 15, 15, 15, 15, 15, 15, 15…
+$ month_of_birth                  &lt;int&gt; 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,…
+$ year_of_birth                   &lt;int&gt; 2000, 2006, 1984, 1953, 1974, 2001, 20…
+$ Weight_measured                 &lt;chr&gt; "Measured", NA, "Measured", "Member - …
+$ Weight_in_kg                    &lt;dbl&gt; 30.5, NA, 50.2, NA, 49.7, 23.6, 22.1, …
+$ Length_height_measured          &lt;chr&gt; "Measured", NA, "Measured", "Member - …
+$ length_height_code              &lt;chr&gt; "Height", NA, "Height", NA, "Height", …
+$ Length_height_cm                &lt;dbl&gt; 124.5, NA, 153.2, NA, 157.3, 120.6, 12…
+$ Haemoglobin_test                &lt;chr&gt; "YES", NA, "YES", "YES", "YES", "YES",…
+$ Haemoglobin                     &lt;chr&gt; "Measured", NA, "Measured", "Measured"…
+$ Haemoglobin_level               &lt;dbl&gt; 8.1, NA, 9.2, 9.2, 6.9, 9.8, 9.2, 6.9,…
+$ BP_systolic                     &lt;int&gt; NA, NA, 141, NA, 110, NA, NA, NA, 110,…
+$ BP_systolic_2_reading           &lt;int&gt; NA, NA, 145, NA, 115, NA, NA, NA, 115,…
+$ BP_Diastolic                    &lt;int&gt; NA, NA, 89, NA, 76, NA, NA, NA, 76, 53…
+$ BP_Diastolic_2reading           &lt;int&gt; NA, NA, 92, NA, 80, NA, NA, NA, 80, 58…
+$ Pulse_rate                      &lt;int&gt; NA, NA, 74, NA, 71, NA, NA, NA, 71, 85…
+$ Pulse_rate_2_reading            &lt;int&gt; NA, NA, 79, NA, 77, NA, NA, NA, 80, 90…
+$ Diabetes_test                   &lt;chr&gt; NA, NA, "YES", "NO", "YES", NA, NA, NA…
+$ fasting_blood_glucose           &lt;chr&gt; NA, NA, "Measured", "Member - not pres…
+$ fasting_blood_glucose_mg_dl     &lt;int&gt; NA, NA, 109, NA, 109, NA, NA, NA, 112,…
+$ Marital_status                  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, "M…
+$ gauna_perfor_not_perfor         &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, "N…
+$ duration_pregnanacy             &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ first_breast_feeding            &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ is_cur_breast_feeding           &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ day_or_mn_for_breast_feeding_cd &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ day_or_month_for_breast_feeding &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ water_month                     &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ ani_milk_month                  &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ semisolid_month_or_day          &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ solid_month                     &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ vegetables_month_or_day         &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ illness_type                    &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ illness_duration                &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ treatment_type                  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…</code></pre>
+</div>
+</div>
+</section>
+<section id="clean-the-names-of-the-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="clean-the-names-of-the-dataset">Clean the names of the dataset</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">|&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="check-of-the-names-are-cleaned" class="level3">
+<h3 class="anchored" data-anchor-id="check-of-the-names-are-cleaned">Check of the names are cleaned</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "state_code"                      "district_code"                  
+ [3] "rural_urban"                     "stratum"                        
+ [5] "psu_id"                          "ahs_house_unit"                 
+ [7] "house_hold_no"                   "date_survey"                    
+ [9] "test_salt_iodine"                "record_code_iodine"             
+[11] "record_code_iodine_reason"       "sl_no"                          
+[13] "sex"                             "usual_residance"                
+[15] "usual_residance_reason"          "identification_code"            
+[17] "age_code"                        "age"                            
+[19] "date_of_birth"                   "month_of_birth"                 
+[21] "year_of_birth"                   "weight_measured"                
+[23] "weight_in_kg"                    "length_height_measured"         
+[25] "length_height_code"              "length_height_cm"               
+[27] "haemoglobin_test"                "haemoglobin"                    
+[29] "haemoglobin_level"               "bp_systolic"                    
+[31] "bp_systolic_2_reading"           "bp_diastolic"                   
+[33] "bp_diastolic_2reading"           "pulse_rate"                     
+[35] "pulse_rate_2_reading"            "diabetes_test"                  
+[37] "fasting_blood_glucose"           "fasting_blood_glucose_mg_dl"    
+[39] "marital_status"                  "gauna_perfor_not_perfor"        
+[41] "duration_pregnanacy"             "first_breast_feeding"           
+[43] "is_cur_breast_feeding"           "day_or_mn_for_breast_feeding_cd"
+[45] "day_or_month_for_breast_feeding" "water_month"                    
+[47] "ani_milk_month"                  "semisolid_month_or_day"         
+[49] "solid_month"                     "vegetables_month_or_day"        
+[51] "illness_type"                    "illness_duration"               
+[53] "treatment_type"                 </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="step-4-data-exploration" class="level2">
+<h2 class="anchored" data-anchor-id="step-4-data-exploration">Step 4: Data Exploration</h2>
+<p>look at sex distribution</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(sex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  sex        n
+  &lt;chr&gt;  &lt;int&gt;
+1 Female  2793
+2 Male    2806</code></pre>
+</div>
+</div>
+<section id="look-at-place-of-residence" class="level3">
+<h3 class="anchored" data-anchor-id="look-at-place-of-residence">look at place of residence</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(rural_urban)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  rural_urban     n
+  &lt;chr&gt;       &lt;int&gt;
+1 Rural        5106
+2 Urban         493</code></pre>
+</div>
+</div>
+</section>
+<section id="look-at-blood-pressure" class="level3">
+<h3 class="anchored" data-anchor-id="look-at-blood-pressure">look at blood pressure</h3>
+<p>Systolic - 1st Reading</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(bp_systolic) <span class="sc">|&gt;</span>  <span class="co"># select the variable</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">class</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "tbl_df"     "tbl"        "data.frame"</code></pre>
+</div>
+</div>
+</section>
+<section id="a-different-way" class="level3">
+<h3 class="anchored" data-anchor-id="a-different-way">a different way</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(bp_systolic) <span class="sc">|&gt;</span>  <span class="co"># select the variable as a vector</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">class</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "integer"</code></pre>
+</div>
+</div>
+</section>
+<section id="systolic---2nd-reading-another-way" class="level3">
+<h3 class="anchored" data-anchor-id="systolic---2nd-reading-another-way">Systolic - 2nd Reading (another way)</h3>
+<p>df<span class="math inline">\(bp_systolic_2_reading |&gt; # '\)</span>’ sign could be used to select any variable from a dataset. summary()</p>
+</section>
+<section id="diastolic---1st-reading" class="level3">
+<h3 class="anchored" data-anchor-id="diastolic---1st-reading">Diastolic - 1st Reading</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(bp_diastolic) <span class="sc">|&gt;</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+  40.00   70.00   78.00   77.57   85.00  126.00    2210 </code></pre>
+</div>
+</div>
+</section>
+<section id="diastolic---2nd-reading" class="level3">
+<h3 class="anchored" data-anchor-id="diastolic---2nd-reading">Diastolic - 2nd Reading</h3>
+<p>df$bp_diastolic_2reading |&gt; summary()</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(bp_diastolic_2reading) <span class="sc">|&gt;</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+  41.00   74.00   81.00   80.97   87.00  126.00    2210 </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="step-5-data-wrangling" class="level2">
+<h2 class="anchored" data-anchor-id="step-5-data-wrangling">Step 5: Data Wrangling</h2>
+<section id="create-an-age-in-years-column-whether-age-is-measured-in-days-months-or-year-etc" class="level3">
+<h3 class="anchored" data-anchor-id="create-an-age-in-years-column-whether-age-is-measured-in-days-months-or-year-etc">Create an Age in Years Column # whether age is measured in days, months or year etc</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span>                 <span class="co"># Step 6: reassign it back to `df` to save</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a> df <span class="sc">|&gt;</span>                <span class="co"># Step 1: specify dataset</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">age_in_years =</span>           <span class="co"># Step 2: specify the name of the new column</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>           <span class="fu">case_when</span>(             <span class="co"># Step 3: use the `ifelse` function</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>             age_code <span class="sc">==</span> <span class="st">"Days"</span> <span class="sc">~</span> age<span class="sc">/</span><span class="dv">365</span>,     <span class="co"># Step 4a: change age in days</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>             age_code <span class="sc">==</span> <span class="st">"Months"</span> <span class="sc">~</span> age<span class="sc">/</span><span class="dv">12</span>,    <span class="co"># Step 4b: change age in months</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>             age_code <span class="sc">==</span> <span class="st">"Year"</span> <span class="sc">~</span> age,         <span class="co"># Step 4c: keep age if age_code is  years</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>             <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA</span>                <span class="co"># Step 5: for the rest, keep as NA</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>             ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="create-age-category" class="level3">
+<h3 class="anchored" data-anchor-id="create-age-category">Create Age Category</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span>                    <span class="co"># Step 6: reassign it back to `df` to save</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">|&gt;</span>                  <span class="co"># Step 1: specify dataset</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">age_cat =</span>           <span class="co"># Step 2: specify the name of the new column</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>           <span class="fu">case_when</span>(        <span class="co"># Step 3: use the `ifelse` function</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>             age_in_years <span class="sc">&lt;=</span> <span class="dv">5</span> <span class="sc">~</span> <span class="st">"Under 5 years"</span>,        <span class="co"># Step 4a: specify under 5 years</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>             age_in_years <span class="sc">&lt;</span> <span class="dv">18</span> <span class="sc">~</span> <span class="st">"Under 18 years"</span>,       <span class="co"># Step 4b: 5-18 years</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>             age_in_years <span class="sc">&gt;=</span> <span class="dv">18</span> <span class="sc">~</span> <span class="st">"18 years and above"</span>,  <span class="co"># Step 4c: 18+ years</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>             <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA</span>                        <span class="co"># Step 5: for the rest, keep as NA</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>           )</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="create-mean-systolic-and-mean-diastolic-pressure-and-check" class="level3">
+<h3 class="anchored" data-anchor-id="create-mean-systolic-and-mean-diastolic-pressure-and-check">Create mean systolic and mean diastolic pressure and check</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">|&gt;</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">bp_systolic_mean =</span> (bp_systolic <span class="sc">+</span> bp_systolic_2_reading)<span class="sc">/</span><span class="dv">2</span> , <span class="co"># Step 2: calculate mean systolic BP</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">bp_diastolic_mean =</span> (bp_diastolic <span class="sc">+</span> bp_diastolic_2reading)<span class="sc">/</span><span class="dv">2</span> <span class="co"># Step 3: calculate mean diastolic BP</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="create-hypertension-column" class="level3">
+<h3 class="anchored" data-anchor-id="create-hypertension-column">Create Hypertension Column</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span>         <span class="co">#  Step 7: reassign it back to `df` to ensure the changes are saved</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">|&gt;</span>       <span class="co"># Step 1: specify dataset</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="at">hypertension =</span>       <span class="co"># Step 2: specify the name of the new column</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>            <span class="fu">if_else</span>(            <span class="co"># Step 3: use the `ifelse` function</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>              bp_systolic_mean <span class="sc">&gt;=</span> <span class="dv">140</span> <span class="sc">|</span> bp_diastolic_mean <span class="sc">&gt;=</span> <span class="dv">90</span>,     <span class="co"># Step 4: specify the condition</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>              <span class="st">"Present"</span>,                    <span class="co">#  Step 5: specify if true</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>              <span class="st">"Absent"</span>                      <span class="co">#  Step 6: specify if false</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>              )) <span class="sc">|&gt;</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">hypertension =</span> <span class="fu">factor</span>(hypertension))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="classify-individuals-into-hypertensive-categories" class="level3">
+<h3 class="anchored" data-anchor-id="classify-individuals-into-hypertensive-categories">Classify individuals into Hypertensive categories</h3>
+<p>HTN +/- systolics &gt;= 140, diastolic &gt;= 90 150/80 ?? Isolated Systolic 120/100 ?? Isolated diastolic Frank HTN sys &gt;= 140 &amp; dias &gt;= 90</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span>  <span class="co"># Step 7: reassign it back to `df` to save the changes</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">|&gt;</span> <span class="co"># Step 1: specify dataset</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="at">hypertension_cat =</span> <span class="co"># Step 2: specify the name of the new column</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>            <span class="fu">case_when</span>( <span class="co"># Step 3: use the `case_when` function</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>              bp_systolic_mean <span class="sc">&gt;=</span> <span class="dv">140</span> <span class="sc">&amp;</span> bp_diastolic_mean <span class="sc">&gt;=</span> <span class="dv">90</span> <span class="sc">~</span> <span class="st">"Frank HTN"</span>, <span class="co"># Step 4a: condition ~ if true</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>              bp_systolic_mean <span class="sc">&gt;=</span> <span class="dv">140</span> <span class="sc">~</span> <span class="st">"Isolated Systolic HTN"</span>, <span class="co"># Step 4b: condition ~ if true</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>              bp_diastolic_mean <span class="sc">&gt;=</span> <span class="dv">90</span> <span class="sc">~</span> <span class="st">"Isolated Diastolic HTN"</span>, <span class="co"># Step 4c: condition ~ if true</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>              <span class="fu">is.na</span>(bp_systolic_mean) <span class="sc">~</span> <span class="cn">NA_character_</span>, <span class="co"># Step 5: how to treat missing values</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>              <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Normotensive"</span>  <span class="co"># Step 6: how to treat the rest</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>              )</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>          )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="categorizing-diabetes" class="level3">
+<h3 class="anchored" data-anchor-id="categorizing-diabetes">Categorizing Diabetes</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">|&gt;</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">dm_cat =</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>           <span class="fu">if_else</span>(fasting_blood_glucose_mg_dl <span class="sc">&gt;=</span> <span class="dv">126</span>,</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"Present"</span>, <span class="st">"Absent"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="categorizing-anaemia" class="level3">
+<h3 class="anchored" data-anchor-id="categorizing-anaemia">Categorizing Anaemia</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">anaemia_cat =</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>           <span class="fu">if_else</span>(haemoglobin_level <span class="sc">&lt;=</span> <span class="dv">10</span>, <span class="st">"Present"</span>, <span class="st">"Absent"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="creating-bmi" class="level3">
+<h3 class="anchored" data-anchor-id="creating-bmi">Creating BMI</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bmi =</span> weight_in_kg<span class="sc">/</span>(length_height_cm<span class="sc">/</span><span class="dv">100</span>)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>           )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="export-the-cleaned-data" class="level3">
+<h3 class="anchored" data-anchor-id="export-the-cleaned-data">Export The cleaned Data</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> <span class="fu">export</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"cleaned_data_20231206.rds"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="step-6-data-visualization" class="level1">
+<h1>Step 6: Data Visualization</h1>
+<section id="plot-1-create-a-histogram-of-age" class="level2">
+<h2 class="anchored" data-anchor-id="plot-1-create-a-histogram-of-age">Plot 1: Create a histogram of Age</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> <span class="co"># Step 1: Specify Dataset</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="co"># Step 2: Initiate the plot</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>( <span class="co"># Step 3: Add Geometry (stars with `geom_`)</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> age_in_years)) <span class="sc">+</span> <span class="co"># Step 4: Add Aesthetics (within the `aes()`)</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Age Distribution"</span>,</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Age in years"</span>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 rows containing non-finite values (`stat_bin()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="exercise_day2_working_with_data_workbook_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="plot-2-create-a-barchart-of-place-of-residence" class="level2">
+<h2 class="anchored" data-anchor-id="plot-2-create-a-barchart-of-place-of-residence">Plot 2: Create a barchart of place of residence</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> <span class="co"># Step 1: Specify Dataset</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="co"># Step 2: Initiate the plot</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(  <span class="co"># Step 3: Add Geometry (stars with `geom_`)</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> rural_urban, <span class="co"># Step 4a: Add Aesthetics (within the `aes()`)</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">fill =</span> rural_urban)) <span class="sc">+</span> <span class="co"># Step 4b: Add Fill color (within the `aes()`)</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribution by location"</span>,</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Location"</span>,</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"DME 2023 Exercise"</span></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="exercise_day2_working_with_data_workbook_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="plot-3-create-a-boxplot-of-mean-systolic-blood-pressure-by-gender" class="level2">
+<h2 class="anchored" data-anchor-id="plot-3-create-a-boxplot-of-mean-systolic-blood-pressure-by-gender">Plot 3: Create a boxplot of mean systolic blood pressure by gender</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> <span class="co"># Step 1: Specify Dataset</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="co"># Step 2: Initiate the plot</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(  <span class="co"># Step 3: Add Geometry (stars with `geom_`)</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> sex, <span class="co"># Step 4a: Add grouping variable (within the `aes()`)</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> bp_systolic_mean,<span class="co"># Step 4b: Add continous variable (within the `aes()`)</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">fill =</span> sex)) <span class="sc">+</span> <span class="co"># Step 4b: Add Fill color (within the `aes()`)</span></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Systolic BP across Gender"</span>,</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Gender"</span>,</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Gender"</span>,</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Mean Systolic BP(mmHg)"</span></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 2210 rows containing non-finite values (`stat_boxplot()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="exercise_day2_working_with_data_workbook_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise" class="level1">
+<h1>EXERCISE</h1>
+<ol type="1">
+<li><p>What is the prevalence of hypertension among adults in the district?</p></li>
+<li><p>What is the prevalence of diabetes among adults in the district?</p></li>
+<li><p>What is the average blood sugar of adult males?</p></li>
+<li><p>What is the prevalence of anaemia among girls under 18 years?</p></li>
+<li><p>What is the average BMI of the study population?</p></li>
+</ol>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

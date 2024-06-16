@@ -1,0 +1,7 @@
+"0",""
+"0","## Create path to the file to read"
+"0",""
+"0","filepath <- here(""data"", ""ahs-cab2014-chhattisgarh-bastar(1).csv"")"
+"0",""
+"0","## Import data using the `import` function, set class as `tibble`"
+"0","df <- import(filepath, setclass = ""tibble"")"

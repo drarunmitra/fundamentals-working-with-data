@@ -1,0 +1,8 @@
+"0","#| echo: false"
+"0","#| warning: false"
+"0","#| message: false"
+"0",""
+"0","df %>% "
+"0","  ggplot(aes(x = bp_systolic_mean, y = bp_diastolic_mean, color = rural_urban)) +"
+"0","  geom_point(alpha = 0.05) +"
+"0","  geom_smooth(method = 'lm', alpha= 0.8)"

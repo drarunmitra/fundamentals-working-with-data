@@ -1,0 +1,7 @@
+"0","df |>"
+"0","  pull(bp_systolic) |>  # select the variable as a vector"
+"0","  class()"
+"1","[1]"
+"1"," ""integer"""
+"1","
+"

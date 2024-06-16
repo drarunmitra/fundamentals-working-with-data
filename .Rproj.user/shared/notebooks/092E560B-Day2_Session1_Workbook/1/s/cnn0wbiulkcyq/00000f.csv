@@ -1,0 +1,43 @@
+"0","df %>% glimpse()
+"
+"1","Rows: 3,055"
+"1",""
+"1","
+"
+"1","Columns: 30"
+"1",""
+"1","
+"
+"1","$ state                           [3m[38;5;246m<chr>[39m[23m ""JHARKHAND"", ""JHARKHAND"", ""J…
+$ district                        [3m[38;5;246m<chr>[39m[23m ""DHANBAD"", ""DHANBAD"", ""DHANB…
+$ rural                           [3m[38;5;246m<chr>[39m[23m ""Rural"", ""Rural"", ""Rural"", ""…
+$ deceased_sex                    [3m[38;5;246m<chr>[39m[23m ""Male"", ""Male"", ""Male"", ""Fem…
+$ date_of_death                   [3m[38;5;246m<dbl>[39m[23m 0, 0, 0, 14, 11, 2, 30, 0, 0…
+$ month_of_death                  [3m[38;5;246m<dbl>[39m[23m 10, 8, 2, 5, 10, 8, 9, 6, 1,…
+$ year_of_death                   [3m[38;5;246m<dbl>[39m[23m 2007, 2008, 2007, 2008, 2007…
+$ age_of_death_below_one_month    [3m[38;5;246m<dbl>[39m[23m NA, NA, NA, NA, NA, NA, NA, …
+$ age_of_death_below_eleven_month [3m[38;5;246m<dbl>[39m[23m NA, NA, NA, NA, NA, NA, NA, …
+$ age_of_death_above_one_year     [3m[38;5;246m<dbl>[39m[23m 50, 35, 2, 60, 27, 35, 21, 1…
+$ treatment_source                [3m[38;5;246m<chr>[39m[23m ""No Medical attention"", ""No …
+$ place_of_death                  [3m[38;5;246m<chr>[39m[23m ""At home"", ""At home"", ""At ho…
+$ is_death_reg                    [3m[38;5;246m<chr>[39m[23m ""No"", ""No"", ""No"", ""Yes"", ""No…
+$ is_death_certificate_received   [3m[38;5;246m<chr>[39m[23m ""0"", ""0"", ""0"", ""No"", ""0"", ""Y…
+$ death_symptoms                  [3m[38;5;246m<chr>[39m[23m NA, NA, NA, NA, NA, NA, NA, …
+$ death_period                    [3m[38;5;246m<chr>[39m[23m NA, NA, NA, NA, NA, NA, NA, …
+$ months_of_pregnancy             [3m[38;5;246m<dbl>[39m[23m NA, NA, NA, NA, NA, NA, NA, …
+$ factors_contributing_death      [3m[38;5;246m<chr>[39m[23m NA, NA, NA, NA, NA, NA, NA, …
+$ factors_contributing_death_2    [3m[38;5;246m<chr>[39m[23m NA, NA, NA, NA, NA, NA, NA, …
+$ symptoms_of_death               [3m[38;5;246m<chr>[39m[23m NA, NA, NA, NA, NA, NA, NA, …
+$ tim_bet_onset_complctn_n_death  [3m[38;5;246m<chr>[39m[23m NA, NA, NA, NA, NA, NA, NA, …
+$ religion                        [3m[38;5;246m<chr>[39m[23m ""Hindu"", ""Hindu"", ""Hindu"", ""…
+$ social_group_code               [3m[38;5;246m<chr>[39m[23m ""SC"", ""ST"", ""SC"", ""Others"", …
+$ house_structure                 [3m[38;5;246m<chr>[39m[23m ""Kuccha"", ""Kuccha"", ""Kuccha""…
+$ diagnosed_for                   [3m[38;5;246m<chr>[39m[23m ""Not diagnosed"", ""Not diagno…
+$ diagnosis_source                [3m[38;5;246m<chr>[39m[23m NA, NA, NA, NA, ""Private-Hos…
+$ regular_treatment               [3m[38;5;246m<chr>[39m[23m NA, NA, NA, NA, ""Yes-Regular…
+$ owner_status                    [3m[38;5;246m<chr>[39m[23m ""Owned"", ""Owned"", ""Owned"", ""…
+$ drinking_water_source           [3m[38;5;246m<chr>[39m[23m ""Public tap/standpipe"", ""Pub…
+$ toilet_used                     [3m[38;5;246m<chr>[39m[23m ""open defecation(field, brus…"
+"1",""
+"1","
+"

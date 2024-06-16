@@ -1,0 +1,19 @@
+"0","df |> # Step 1: Specify Dataset
+  ggplot() + # Step 2: Initiate the plot
+  geom_bar(  # Step 3: Add Geometry (stars with `geom_`)
+    aes(x = rural_urban, # Step 4a: Add Aesthetics (within the `aes()`)
+        fill = rural_urban)) + # Step 4b: Add Fill color (within the `aes()`)
+  labs(
+    title = ""Distribution by location"",
+    x = ""Location"",
+    caption = ""DME 2023 Exercise""
+  ) +
+  ggsci::scale_fill_jama()
+"
+"2","Warning in gzfile(file, ""wb"") :"
+"2","
+ "
+"2"," cannot open compressed file 'C:/Users/Arun/Dropbox/PhD/Workshops/AIIMS_Kalyani/materials/NWHDA_Kalyani/sessions/Working_with_Data_Session/.Rproj.user/shared/notebooks/F3363CF0-exercise_day2_working_with_data_workbook/1/6304DC70f89f7b99/cotp0hjldfals_t/ff3e9a5c766f47bba1bc26757c1f9088.snapshot', probable reason 'No such file or directory'
+"
+"2","Error in gzfile(file, ""wb"") : cannot open the connection
+"

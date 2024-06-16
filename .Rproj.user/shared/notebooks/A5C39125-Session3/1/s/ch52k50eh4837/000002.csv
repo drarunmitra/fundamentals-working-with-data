@@ -1,0 +1,52 @@
+"0","tb <- read_csv(here(""who_tubercolosis_data.csv""))"
+"1","
+[36m--[39m [1m[1mColumn specification[1m[22m [36m-------------------------------------------------[39m
+cols(
+  country = [31mcol_character()[39m,
+  who_region = [31mcol_character()[39m,
+  year = [32mcol_double()[39m,
+  pop = [32mcol_double()[39m,
+  incidence_100k = [32mcol_double()[39m,
+  incidence_number = [32mcol_double()[39m,
+  hiv_percent = [32mcol_double()[39m,
+  hiv_incidence_100k = [32mcol_double()[39m,
+  hiv_number = [32mcol_double()[39m,
+  mort_nohiv_100k = [32mcol_double()[39m,
+  mort_nohiv_number = [32mcol_double()[39m,
+  mort_hiv_100k = [32mcol_double()[39m,
+  mort_hiv_number = [32mcol_double()[39m,
+  mort_100k = [32mcol_double()[39m,
+  mort_number = [32mcol_double()[39m,
+  case_fatality_ratio = [32mcol_double()[39m,
+  new_incidence_100k = [32mcol_double()[39m,
+  case_detection_percent = [32mcol_double()[39m
+)
+
+"
+"0","glimpse(tb)"
+"1","Rows: 3,850"
+"1",""
+"1","
+"
+"1","Columns: 18"
+"1","$ country                <chr> ""Afghanistan"", ""Afghanistan"", ""Afghanist~
+$ who_region             <chr> ""EMR"", ""EMR"", ""EMR"", ""EMR"", ""EMR"", ""EMR""~
+$ year                   <dbl> 2000, 2001, 2002, 2003, 2004, 2005, 2006~
+$ pop                    <dbl> 20093756, 20966463, 21979923, 23064851, ~
+$ incidence_100k         <dbl> 190, 189, 189, 189, 189, 189, 189, 189, ~
+$ incidence_number       <dbl> 38000, 40000, 42000, 44000, 46000, 47000~
+$ hiv_percent            <dbl> 0.36, 0.30, 0.26, 0.23, 0.22, 0.22, 0.22~
+$ hiv_incidence_100k     <dbl> 0.68, 0.57, 0.49, 0.44, 0.41, 0.42, 0.42~
+$ hiv_number             <dbl> 140, 120, 110, 100, 100, 100, 110, 120, ~
+$ mort_nohiv_100k        <dbl> 67.00, 62.00, 56.00, 57.00, 51.00, 46.00~
+$ mort_nohiv_number      <dbl> 14000, 13000, 12000, 13000, 12000, 12000~
+$ mort_hiv_100k          <dbl> 0.15, 0.17, 0.27, 0.25, 0.21, 0.19, 0.18~
+$ mort_hiv_number        <dbl> 31, 35, 60, 57, 50, 48, 46, 45, 48, 55, ~
+$ mort_100k              <dbl> 67.00, 62.00, 56.00, 57.00, 51.00, 46.00~
+$ mort_number            <dbl> 14000, 13000, 12000, 13000, 12000, 12000~
+$ case_fatality_ratio    <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ new_incidence_100k     <dbl> 35, 48, 63, 60, 76, 87, 98, 108, 104, 93~
+$ case_detection_percent <dbl> 19, 26, 33, 32, 40, 46, 52, 57, 55, 49, ~"
+"1",""
+"1","
+"

@@ -1,0 +1,9 @@
+"0","library(tidyverse)  # for additional packages for tidy operations"
+"0","library(here)       # for organising file paths"
+"2","here() starts at C:/Users/Arun/Dropbox/PhD/Workshops/AIIMS_Kalyani/materials/NWHDA_Kalyani/sessions/Working_with_Data_Session
+"
+"0","library(rio)        # for importing data"
+"2","Registered S3 method overwritten by 'data.table':
+  method           from
+  print.data.table     
+"

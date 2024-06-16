@@ -1,0 +1,8 @@
+"0",""
+"0","df <- "
+"0","  df |>"
+"0","  mutate("
+"0","    bp_systolic_mean = (bp_systolic + bp_systolic_2_reading)/2 , # Step 2: calculate mean systolic BP"
+"0","    bp_diastolic_mean = (bp_diastolic + bp_diastolic_2reading)/2 # Step 3: calculate mean diastolic BP"
+"0","  )"
+"0",""

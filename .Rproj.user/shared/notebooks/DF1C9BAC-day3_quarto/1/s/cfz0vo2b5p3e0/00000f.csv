@@ -1,0 +1,3 @@
+"0","df <- df |>"
+"0","  mutate(bmi = weight_in_kg/(length_height_cm/100)^2"
+"0","           )"

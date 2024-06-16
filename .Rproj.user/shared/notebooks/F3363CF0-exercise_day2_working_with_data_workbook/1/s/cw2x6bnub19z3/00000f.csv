@@ -1,0 +1,8 @@
+"0","df |> # Step 1: Specify Dataset"
+"0","  ggplot() + # Step 2: Initiate the plot"
+"0","  geom_histogram( # Step 3: Add Geometry (stars with `geom_`)"
+"0","    aes(x = age_in_years)) + # Step 4: Add Aesthetics (within the `aes()`)"
+"0","  labs("
+"0","    title = ""Age Distribution"","
+"0","    x = ""Age in years""  )"
+"0",""

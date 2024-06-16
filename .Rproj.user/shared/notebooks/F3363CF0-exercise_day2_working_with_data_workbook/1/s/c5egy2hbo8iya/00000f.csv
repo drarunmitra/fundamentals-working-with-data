@@ -1,0 +1,66 @@
+"0","df |>"
+"0","  glimpse()"
+"1","Rows: 5,599"
+"1",""
+"1","
+"
+"1","Columns: 53"
+"1",""
+"1","
+"
+"1","$ state_code                      [3m[38;5;246m<chr>[39m[23m ""CHHATTISG…
+$ district_code                   [3m[38;5;246m<chr>[39m[23m ""BASTAR"", …
+$ rural_urban                     [3m[38;5;246m<chr>[39m[23m ""Rural"", ""…
+$ stratum                         [3m[38;5;246m<chr>[39m[23m ""200<popul…
+$ PSU_ID                          [3m[38;5;246m<int>[39m[23m 1522980, 1…
+$ ahs_house_unit                  [3m[38;5;246m<int>[39m[23m 251, 251, …
+$ house_hold_no                   [3m[38;5;246m<int>[39m[23m 1, 1, 1, 1…
+$ date_survey                     [3m[38;5;246m<chr>[39m[23m ""1/7/2014""…
+$ test_salt_iodine                [3m[38;5;246m<int>[39m[23m 30, 30, 30…
+$ record_code_iodine              [3m[38;5;246m<chr>[39m[23m ""More than…
+$ record_code_iodine_reason       [3m[38;5;246m<lgl>[39m[23m NA, NA, NA…
+$ sl_no                           [3m[38;5;246m<int>[39m[23m 5, 6, 1, 2…
+$ Sex                             [3m[38;5;246m<chr>[39m[23m ""Male"", ""M…
+$ usual_residance                 [3m[38;5;246m<chr>[39m[23m ""YES"", ""NO…
+$ usual_residance_Reason          [3m[38;5;246m<int>[39m[23m NA, NA, NA…
+$ identification_code             [3m[38;5;246m<int>[39m[23m 930, 931, …
+$ Age_Code                        [3m[38;5;246m<chr>[39m[23m ""Year"", ""Y…
+$ Age                             [3m[38;5;246m<int>[39m[23m 14, 8, 45,…
+$ date_of_birth                   [3m[38;5;246m<int>[39m[23m 15, 15, 15…
+$ month_of_birth                  [3m[38;5;246m<int>[39m[23m 6, 6, 6, 6…
+$ year_of_birth                   [3m[38;5;246m<int>[39m[23m 2000, 2006…
+$ Weight_measured                 [3m[38;5;246m<chr>[39m[23m ""Measured""…
+$ Weight_in_kg                    [3m[38;5;246m<dbl>[39m[23m 30.5, NA, …
+$ Length_height_measured          [3m[38;5;246m<chr>[39m[23m ""Measured""…
+$ length_height_code              [3m[38;5;246m<chr>[39m[23m ""Height"", …
+$ Length_height_cm                [3m[38;5;246m<dbl>[39m[23m 124.5, NA,…
+$ Haemoglobin_test                [3m[38;5;246m<chr>[39m[23m ""YES"", NA,…
+$ Haemoglobin                     [3m[38;5;246m<chr>[39m[23m ""Measured""…
+$ Haemoglobin_level               [3m[38;5;246m<dbl>[39m[23m 8.1, NA, 9…
+$ BP_systolic                     [3m[38;5;246m<int>[39m[23m NA, NA, 14…
+$ BP_systolic_2_reading           [3m[38;5;246m<int>[39m[23m NA, NA, 14…
+$ BP_Diastolic                    [3m[38;5;246m<int>[39m[23m NA, NA, 89…
+$ BP_Diastolic_2reading           [3m[38;5;246m<int>[39m[23m NA, NA, 92…
+$ Pulse_rate                      [3m[38;5;246m<int>[39m[23m NA, NA, 74…
+$ Pulse_rate_2_reading            [3m[38;5;246m<int>[39m[23m NA, NA, 79…
+$ Diabetes_test                   [3m[38;5;246m<chr>[39m[23m NA, NA, ""Y…
+$ fasting_blood_glucose           [3m[38;5;246m<chr>[39m[23m NA, NA, ""M…
+$ fasting_blood_glucose_mg_dl     [3m[38;5;246m<int>[39m[23m NA, NA, 10…
+$ Marital_status                  [3m[38;5;246m<chr>[39m[23m NA, NA, NA…
+$ gauna_perfor_not_perfor         [3m[38;5;246m<chr>[39m[23m NA, NA, NA…
+$ duration_pregnanacy             [3m[38;5;246m<int>[39m[23m NA, NA, NA…
+$ first_breast_feeding            [3m[38;5;246m<chr>[39m[23m NA, NA, NA…
+$ is_cur_breast_feeding           [3m[38;5;246m<chr>[39m[23m NA, NA, NA…
+$ day_or_mn_for_breast_feeding_cd [3m[38;5;246m<chr>[39m[23m NA, NA, NA…
+$ day_or_month_for_breast_feeding [3m[38;5;246m<int>[39m[23m NA, NA, NA…
+$ water_month                     [3m[38;5;246m<int>[39m[23m NA, NA, NA…
+$ ani_milk_month                  [3m[38;5;246m<int>[39m[23m NA, NA, NA…
+$ semisolid_month_or_day          [3m[38;5;246m<int>[39m[23m NA, NA, NA…
+$ solid_month                     [3m[38;5;246m<int>[39m[23m NA, NA, NA…
+$ vegetables_month_or_day         [3m[38;5;246m<int>[39m[23m NA, NA, NA…
+$ illness_type                    [3m[38;5;246m<chr>[39m[23m NA, NA, NA…
+$ illness_duration                [3m[38;5;246m<int>[39m[23m NA, NA, NA…
+$ treatment_type                  [3m[38;5;246m<chr>[39m[23m NA, NA, NA…"
+"1",""
+"1","
+"

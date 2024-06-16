@@ -1,0 +1,4 @@
+"0","# Save the dataframe after cleaning names"
+"0",""
+"0","df <- df %>% janitor::clean_names()"
+"0",""

@@ -1,0 +1,260 @@
+---
+title: "Explore Data using R"
+author: "Write your name"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+This document is a live code demo.. please edit it as you see fit. Add your own text between the code chunks as discussed yesterday..
+
+Let us begin!
+
+# Step One: Load Packages
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+# Loading the Packages
+library(tidyverse)
+library(here)
+
+```
+
+
+
+# Step Two: Import Data
+
+### About the data
+
+The Annual Health Survey (AHS) was conceived in 2005 under the Chairmanship of the then Prime Minister. It was decided that "there should be an Annual Health Survey of all districts which could be published/ monitored and compared against benchmarks".
+
+This dataset is a subset of the annual health survey data and contains information on the deaths in the district of Dhanbad, Jharkhand. It contains information on the age, gender, date of death and other socio demographic attributes including income, religion, literacy, occupation, indicators for standard of living index (SLI) etc. More information on the data can be found at: <https://censusindia.gov.in/vital_statistics/AHSBulletins/ahs.html>.
+
+> The dataset we will be working with has been cleaned (to an extent) for the purposes of this workshop. The raw dataset and many more such data are publicly available at: <https://data.gov.in/> for research purposes.
+
+```{r}
+
+# This is going to be your file path using here
+
+# file_path <- here::here("data", "csv_data.csv")
+# 
+# # Loads Data
+# 
+# df <- readr::read_csv(file_path)
+
+
+df <- read_csv(here("data", "csv_data.csv"))
+
+
+```
+
+# Step Three: Clean Variable Names
+
+```{r}
+# Check the names of the first five columns
+
+df %>% names() %>% head()
+
+# Lets try to clean them
+
+df %>% janitor::clean_names() %>% names() %>% head()
+
+```
+
+```{r}
+# Save the dataframe after cleaning names
+
+df <- df %>% janitor::clean_names()
+
+```
+
+# Step Four: View Data
+
+```{r}
+# View(df)
+```
+
+# Step Five: Select Variables of Interest
+
+```{r}
+df <- df %>% dplyr::select(state, # state
+                     district, # district
+                     rural, # rural/urban
+                     deceased_sex, # gender
+                     date_of_death, 
+                     month_of_death, 
+                     year_of_death, 
+                     age_of_death_below_one_month, # age in days
+                     age_of_death_below_eleven_month, # age in months
+                     age_of_death_above_one_year, # age in years
+                     treatment_source,
+                     place_of_death,
+                     is_death_reg, # Yes No
+                     is_death_certificate_received, # Yes No 0(unknown)
+                     death_symptoms,
+                     death_period,
+                     months_of_pregnancy, # for maternal deaths
+                     factors_contributing_death,
+                     factors_contributing_death_2,
+                     symptoms_of_death,
+                     tim_bet_onset_complctn_n_death,
+                     religion,
+                     social_group_code,
+                     house_structure,
+                     diagnosed_for,
+                     diagnosis_source,
+                     regular_treatment,
+                     house_structure,
+                     owner_status,
+                     drinking_water_source,
+                     toilet_used)
+```
+
+# Step Six: Expolore Data
+
+```{r}
+df %>% dim()
+
+df %>% nrow()
+
+df %>% ncol()
+```
+
+```{r}
+df %>% glimpse()
+```
+
+```{r}
+df %>% skimr::skim()
+```
+
+
+## Gender
+
+```{r}
+df$deceased_sex
+```
+
+### Distribution of Gender among deceased
+
+```{r}
+df %>% pull(deceased_sex) %>% table()
+
+df %>% count(deceased_sex) %>% mutate(percent = (n/sum(n))*100)
+
+df %>% glimpse()
+
+
+```
+
+### Visualize distribution of gender
+
+```{r}
+# df %>% pull(deceased_sex) %>% plot()
+# df %>% pull(deceased_sex) %>% class()
+df %>% pull(deceased_sex) %>% as.factor() %>% class()
+df %>% pull(deceased_sex) %>% as.factor() %>% plot()
+```
+
+## Age
+
+```{r}
+
+# age_of_death_below_one_month, # age in days
+# age_of_death_below_eleven_month, # age in months
+# age_of_death_above_one_year, # age in years
+
+df %>% pull(age_of_death_above_one_year) %>% summary()
+```
+
+```{r}
+# This is to create a column for neonate
+df <- df %>% 
+  mutate(neonate = ifelse(is.na(age_of_death_below_one_month), "others", "neonate")) 
+
+# df <- df %>% 
+#   mutate(neonate = ifelse(!is.na(age_of_death_below_one_month), "neonate", "others")) 
+
+# This is to create a column for infant
+df <- df %>% 
+  mutate(infant = ifelse(is.na(age_of_death_below_eleven_month), "others", "infant")) 
+
+
+df <- df %>% 
+  mutate(age_group = ifelse(age_of_death_above_one_year <= 5, "Under 5",ifelse(age_of_death_above_one_year <= 14, "Childern", ifelse(age_of_death_above_one_year <= 25, "Young Adults", ifelse(age_of_death_above_one_year <= 60, "Adults", "Elderly"))))) 
+
+# df$neonate
+# df$infant
+# df$age_group
+
+df <- df %>% 
+  mutate(age_group_consolidated = ifelse(is.na(age_group), 
+                                         neonate, age_group)) %>%
+  mutate(age_group_consolidated = ifelse(age_group_consolidated == "others",
+                                         "infant", age_group_consolidated)) 
+  
+
+df %>% 
+  ggplot() +
+  geom_bar(aes(x = age_group_consolidated))
+
+
+df <- df %>% 
+  mutate(age_grp_factor = factor(age_group_consolidated, levels = c('infant','neonate',"Under 5", "Childern", "Young Adults", "Adults", "Elderly")))
+
+df %>% 
+  ggplot() +
+  geom_bar(aes(x = age_grp_factor))
+```
+
+
+```{r}
+df %>% pull(age_of_death_above_one_year) %>% is.na() %>% summary()
+```
+
+## Create Age in Years
+
+```{r}
+df %>% dplyr::select(age_of_death_below_eleven_month) %>% mutate(age_of_death_below_eleven_month/12)
+```
+
+Now try for days in years
+
+```{r}
+
+```
+
+## Create Age Group
+
+```{r}
+# Using ifelse()
+
+```
+
+```{r}
+# using case_when()
+```
+
+## Visualization
+
+```{r}
+
+```
+
+
+## Rename variables
+
+```{r}
+df <- df %>% 
+  rename(age = age_of_death_above_one_year) %>% 
+  rename(gender = deceased_sex) 
+
+```
+
+## Create a categorical variable of Age Groups
+
+```{r}
+df <- df %>% 
+  mutate(age_new = ifelse(is.na(age), 1, age))
+```
+
+## Create a categorical variable of Age Groups

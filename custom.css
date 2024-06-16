@@ -1,0 +1,36 @@
+/* custom.css */
+.left-code {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+}
+.right-plot {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+
+.pull-left-30 {
+  width: 30%;
+  float: left;
+  padding-left: 1%;
+}
+
+.pull-left-60 {
+  width: 60%;
+  float: left;
+  padding-left: 1%;
+}
+
+.pull-right-30 {
+  width: 30%;
+  float: right;
+  padding-left: 1%;
+}
+
+.pull-right-60 {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}

@@ -1,0 +1,354 @@
+---
+code-fold: true
+embeded-resources: true
+---
+
+## Data for the Clinical Anthropometric and Biochemical Survey 2014
+
+<https://data.gov.in/search?title=cab%20survey>
+
+### Details about the CAB Survey
+- Height/length and weight of all members of the household,
+  women, men and children aged 1 month and above,
+- Hb estimation of women, men and children aged 6 months and above,
+- Blood pressure of all members of the household aged 18 years and above,
+- Fasting blood glucose levels in all members of the household aged 18 years and above.
+- Household salt testing for iodine content to assess access to iodised salt.
+- In addition information on physiological status of woman, infant and
+  young child feeding practices and morbidity at the time of survey was to be collected
+  to correlate these factors with the nutritional status of the persons surveyed
+
+## Step 1: Load Packages
+
+```{r}
+library(tidyverse)  # for additional packages for tidy operations
+library(here)       # for organising file paths
+library(rio)        # for importing data
+```
+      
+
+## Step 2: Load Data
+
+Create path to the file to read
+
+```{r}
+
+## Create path to the file to read
+
+filepath <- here("data", "ahs-cab2014-chhattisgarh-bastar(1).csv")
+
+## Import data using the `import` function, set class as `tibble`
+df <- import(filepath, setclass = "tibble")
+```
+
+
+
+
+## Step 3: Data Inspection
+
+### View the data
+
+```{r}
+ df |> view()
+
+df |>
+  dim()
+```
+
+
+### Overview of the data
+
+```{r}
+df |> dim()
+```
+
+
+
+### Glimpse the data
+
+```{r}
+df |>
+  glimpse()
+```
+
+
+### Clean the names of the dataset
+
+```{r}
+df <-
+  df |>
+  janitor::clean_names()
+```
+
+
+### Check of the names are cleaned
+
+```{r}
+df |>
+  names()
+```
+
+
+
+
+
+## Step 4: Data Exploration
+
+look at sex distribution
+
+```{r}
+df |>
+  count(sex)
+```
+
+### look at place of residence
+
+```{r}
+df |>
+  count(rural_urban)
+```
+
+
+
+### look at blood pressure
+
+ Systolic - 1st Reading
+
+```{r}
+df |>
+  select(bp_systolic) |>  # select the variable
+  class()
+```
+
+
+### a different way
+
+```{r}
+df |>
+  pull(bp_systolic) |>  # select the variable as a vector
+  class()
+```
+
+
+### Systolic - 2nd Reading (another way)
+
+df$bp_systolic_2_reading |> # '$' sign could be used to select any variable from a dataset.
+  summary()
+
+### Diastolic - 1st Reading
+
+```{r}
+df |>
+  pull(bp_diastolic) |>
+  summary()
+```
+
+
+### Diastolic - 2nd Reading
+df$bp_diastolic_2reading |> summary()
+
+```{r}
+df |>
+  pull(bp_diastolic_2reading) |>
+  summary()
+```
+
+
+
+## Step 5: Data Wrangling
+
+### Create an Age in Years Column # whether age is measured in days, months or year etc
+
+```{r}
+df <-                 # Step 6: reassign it back to `df` to save
+ df |>                # Step 1: specify dataset
+  mutate(age_in_years =           # Step 2: specify the name of the new column
+           case_when(             # Step 3: use the `ifelse` function
+             age_code == "Days" ~ age/365,     # Step 4a: change age in days
+             age_code == "Months" ~ age/12,    # Step 4b: change age in months
+             age_code == "Year" ~ age,         # Step 4c: keep age if age_code is  years
+             TRUE ~ NA                # Step 5: for the rest, keep as NA
+             ))
+```
+
+
+### Create Age Category
+
+```{r}
+df <-                    # Step 6: reassign it back to `df` to save
+  df |>                  # Step 1: specify dataset
+  mutate(age_cat =           # Step 2: specify the name of the new column
+           case_when(        # Step 3: use the `ifelse` function
+             age_in_years <= 5 ~ "Under 5 years",        # Step 4a: specify under 5 years
+             age_in_years < 18 ~ "Under 18 years",       # Step 4b: 5-18 years
+             age_in_years >= 18 ~ "18 years and above",  # Step 4c: 18+ years
+             TRUE ~ NA                        # Step 5: for the rest, keep as NA
+           )
+  )
+
+```
+
+
+
+### Create mean systolic and mean diastolic pressure and check
+
+
+  
+  
+```{r}
+
+df <- 
+  df |>
+  mutate(
+    bp_systolic_mean = (bp_systolic + bp_systolic_2_reading)/2 , # Step 2: calculate mean systolic BP
+    bp_diastolic_mean = (bp_diastolic + bp_diastolic_2reading)/2 # Step 3: calculate mean diastolic BP
+  )
+
+```
+
+### Create Hypertension Column
+
+```{r}
+df <-         #  Step 7: reassign it back to `df` to ensure the changes are saved
+  df |>       # Step 1: specify dataset
+  mutate( hypertension =       # Step 2: specify the name of the new column
+            if_else(            # Step 3: use the `ifelse` function
+              bp_systolic_mean >= 140 | bp_diastolic_mean >= 90,     # Step 4: specify the condition
+              "Present",                    #  Step 5: specify if true
+              "Absent"                      #  Step 6: specify if false
+              )) |>
+  mutate(hypertension = factor(hypertension))
+```
+
+### Classify individuals into Hypertensive categories
+ HTN +/- systolics >= 140, diastolic >= 90
+ 150/80 ?? Isolated Systolic
+ 120/100 ?? Isolated diastolic
+ Frank HTN sys >= 140 & dias >= 90
+
+```{r}
+df <-  # Step 7: reassign it back to `df` to save the changes
+  df |> # Step 1: specify dataset
+  mutate( hypertension_cat = # Step 2: specify the name of the new column
+            case_when( # Step 3: use the `case_when` function
+              bp_systolic_mean >= 140 & bp_diastolic_mean >= 90 ~ "Frank HTN", # Step 4a: condition ~ if true
+              bp_systolic_mean >= 140 ~ "Isolated Systolic HTN", # Step 4b: condition ~ if true
+              bp_diastolic_mean >= 90 ~ "Isolated Diastolic HTN", # Step 4c: condition ~ if true
+              is.na(bp_systolic_mean) ~ NA_character_, # Step 5: how to treat missing values
+              TRUE ~ "Normotensive"  # Step 6: how to treat the rest
+              )
+          )
+
+```
+
+### Categorizing Diabetes
+
+```{r}
+df <-
+  df |>
+  mutate(dm_cat =
+           if_else(fasting_blood_glucose_mg_dl >= 126,
+                   "Present", "Absent"))
+```
+
+
+### Categorizing Anaemia
+
+```{r}
+df <- df |>
+  mutate(anaemia_cat =
+           if_else(haemoglobin_level <= 10, "Present", "Absent"))
+```
+
+
+
+### Creating BMI
+
+```{r}
+df <- df |>
+  mutate(bmi = weight_in_kg/(length_height_cm/100)^2
+           )
+```
+
+
+
+
+### Export The cleaned Data
+
+```{r}
+df |> export(here("data", "cleaned_data_20231206.rds"))
+```
+
+
+
+# Step 6: Data Visualization
+
+
+## Plot 1: Create a histogram of Age
+
+```{r}
+df |> # Step 1: Specify Dataset
+  ggplot() + # Step 2: Initiate the plot
+  geom_histogram( # Step 3: Add Geometry (stars with `geom_`)
+    aes(x = age_in_years)) + # Step 4: Add Aesthetics (within the `aes()`)
+  labs(
+    title = "Age Distribution",
+    x = "Age in years"  )
+
+```
+
+
+
+## Plot 2: Create a barchart of place of residence
+
+```{r}
+
+df |> # Step 1: Specify Dataset
+  ggplot() + # Step 2: Initiate the plot
+  geom_bar(  # Step 3: Add Geometry (stars with `geom_`)
+    aes(x = rural_urban, # Step 4a: Add Aesthetics (within the `aes()`)
+        fill = rural_urban)) + # Step 4b: Add Fill color (within the `aes()`)
+  labs(
+    title = "Distribution by location",
+    x = "Location",
+    caption = "DME 2023 Exercise"
+  ) +
+  ggsci::scale_fill_jama()
+```
+
+
+
+## Plot 3: Create a boxplot of mean systolic blood pressure by gender
+
+```{r}
+df |> # Step 1: Specify Dataset
+  ggplot() + # Step 2: Initiate the plot
+  geom_boxplot(  # Step 3: Add Geometry (stars with `geom_`)
+    aes(x = sex, # Step 4a: Add grouping variable (within the `aes()`)
+        y = bp_systolic_mean,# Step 4b: Add continous variable (within the `aes()`)
+        fill = sex)) + # Step 4b: Add Fill color (within the `aes()`)
+  labs(
+    title = "Systolic BP across Gender",
+    fill = "Gender",
+    x = "Gender",
+    y = "Mean Systolic BP(mmHg)"
+  )
+```
+
+
+
+
+
+
+# EXERCISE
+
+1. What is the prevalence of hypertension among adults in the district?
+
+2. What is the prevalence of diabetes among adults in the district?
+
+3. What is the average blood sugar of adult males?
+
+4. What is the prevalence of anaemia among girls under 18 years?
+
+5. What is the average BMI of the study population?
+

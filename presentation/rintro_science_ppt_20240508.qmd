@@ -1,0 +1,290 @@
+---
+format: 
+  revealjs:
+    logo: sctimst_logo.png
+    css: logo.css 
+    slide-number: c/t
+    show-slide-number: all
+    title-slide-attributes:
+      data-background-image: img/slide1.jpg
+      data-background-size: cover
+    footer: "RIntro: Cohort 7"
+    embed-resources: true
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+#| message: false
+#| include: false
+#load libraries
+library(tidyverse)
+library(tidymodels)
+library(infer)
+```
+
+```{r}
+#| include: false
+#| eval: true
+
+library(tidyverse)
+df <- MASS::birthwt |> tibble()
+df <- df %>% 
+  mutate(smoke = factor(smoke,
+                        levels = c(0,1),
+                        labels = c("Non Smoker",
+                                   "Smoker"))) %>% 
+  mutate(race = factor(race,
+                       levels = c(1,2,3),
+                       labels = c("White",
+                                  "Black",
+                                  "Other"))) %>% 
+  mutate(low = factor(low,
+                      levels =  c(0,1),
+                      labels = c("Normal", 
+                                 "Low Birth Weight")))
+  
+```
+
+
+
+
+::: {style="font-size:130%"}
+# Epistemology and research
+:::
+
+
+## Overview
+
+-   About epistemology
+
+-   The changing concepts
+
+    -   multiple realities
+    -   falsification
+    -   notion of strong evidence
+
+-   Experiments and observations
+
+-   The potential for errors!
+
+-   Models and Estimations
+
+
+
+## The different perspectives of reality
+
+::: columns
+::: {.column width="90%"}
+![](images/01perspectives.jpg)
+Two views may be equally valid!
+:::
+:::
+
+
+## Differing perspectives
+
+::: columns
+::: {.column width="50%"}
+![](images/01Chamberlin.jpg)
+
+:::
+
+::: {.column width="50%"} 
+
+ - **TC Champerlin** 
+
+ - In 1890, and again in 1897, Thomas Chrowder Chamberlin wrote **"The method of multiple working hypotheses"**, in which he advocated the importance of simultaneously evaluating several hypotheses.
+
+:::
+:::
+
+## Differing perspectives (2..)
+
+::: columns
+::: {.column width="50%"}
+![](images/01Popper.png)
+:::
+::: {.column width="50%"}
+ - ***Carl Popper***
+
+ - Karl Raimund Popper,  argued instead that hypotheses are deductively validated by what he called the **“falsifiability criterion.”** 
+:::
+:::
+
+
+## Differing perspectives (3...)
+
+::: columns
+::: {.column width="60%"}
+![](images/that-is-science.jpeg)
+:::
+:::{.column width="40%"}
+ - **John R. Platt**
+
+ - John Rader Platt is noted for his pioneering work on **strong inference** in the 1960s and his analysis of social science in the 1970s.
+:::
+:::
+
+##  Experiments and Observations
+
+ - **Experiments** are the hallmark of strong inference, because they isolate experimental units, manipulate treatments, and include randomization, replication, and controls. 
+
+ - **Observations** take place when a pattern or process is observed and often parsed apart into some measured outcome (or response) and measured input(s). 
+
+## Error
+
+ - Error is an important underlying concept throughout science.
+
+  1. **Process error** concerns the errors that arise from imperfections in our understanding of the system we are trying to model
+
+  2. **Observation error** are those errors resulting from imperfections in how we measure and record the systems and relationships we seek to describe.
+
+ - both are unavoidable, we should be aware of them and try to minimize.
+
+## Statistical Models and estimation
+
+ - **Models** are the machinery which can be thought of as a description of the system, process, or relationship you are trying to evaluate
+
+ - _Mathematical models vs. Statistical models_
+
+ - **Estimation** is what makes the model work, or the context in which the parameters are estimated. 
+
+ - Estimation has philosophical underpinnings because it provides inference to how we interpret the data and system. 
+
+##  Statistical models
+
+ - A simple description of a statistical model:
+
+ - **response = deterministic + stochastic**
+
+ - under fitted or over fitted
+
+## Model complexity
+
+ - Models are often referred to as *underparameterized*, and    - models that are too complex as *overparameterized*. 
+
+![](images/model complexity.png){fig-align="center" width="400"}
+
+## Model selection
+ - Depends on a lot on the purpose of your analysis
+  1. Is your goal **prediction?**
+  2. Is your goal **understanding?**
+
+ - Do not give too much importance to an explicit test.
+ - Rather give more importance to your discretion.
+
+## Model estimation
+
+ -  **Monte Carlo estimation**, or sometimes **bootstrapping** or **resampling** which requires very few assumptions and uses the observed data over and over to draw inferences.
+ - **Frequentist estimation** or **Fisherian estimation**  assumes a parametric distribution and is interested in the long run of frequencies within the data. 
+ - **Bayesian estimation** also assume a parametric distribution and includes a prior distribution or prior knowledge about the parameter.
+ 
+## Monte Carlo Estimation/Resampling/Bootstraping
+
+ - Randomly allot the **observations** into the groups
+ - For each simulation a **difference between the two groups** is calculated. 
+ - From the large number of simulations we use the difference estimates to create **the null distribution**
+ - We use the observed data with the null distribution to estimate the **probability**.
+
+## Monte Carlo Estimation/Resampling/Bootstraping
+![](images/monte carlo simulation.png){fig-align="center" width="400"}
+Two hypothetical outcomes from a simple Monte Carlo test.
+ 
+## Frequentist vs Baysian estimates
+
+ - Frequentist  **“What is the probability of the data that I observed compared to a fixed and unknowable parameter(s).”**
+ 
+ - Bayesian  **“What is the probability of certain parameter values based on the data I observed.”**
+ 
+## The frequentist paradigm
+
+ - Assume that data are repeatable **random variables**.
+ - Assume that **parameters do not change** and are often referred to as fixed and unknowable.
+ - All experiments are considered to be independent in the sense that **no prior knowledge** can be (directly) provided to a parameter estimate or model.
+ - **p-values** are a key outcome in frequentist estimation.
+ 
+## The bayesian paradigm
+ - Assume that the **data are fixed**; in other words, the data are the things that are knowable and **parameters are random variables**. 
+ - Can update beliefs in the sense that **prior information can be used** to directly inform the estimate of certain parameters.
+ - Bayesian estimation is driven by **distributions and uncertainty** (as opposed to point estimates). 
+
+
+## our belief system matters
+
+ - Frequentist asks **“The world is fixed and unchanging; therefore, given a certain parameter value how likely am I to observe the data that supports that parameter value?”**
+
+ - Bayesian asks **“The only thing I can know about the changing world is what I observe; therefore, based on my data what are the most likely parameter values I could infer.”**
+
+## Inferential statisitics
+
+- The potential of `infer` package which is part of `tidymodels` metapackage.
+- The `infer` package is centered around 4 main verbs.
+
+1.  `specify()` allows you to specify the variable, or relationship between variables, that you're interested in.
+2.  `hypothesize()` allows you to declare the null hypothesis.
+3.  `generate()` allows you to generate data reflecting the null hypothesis.
+4.  `calculate()` allows you to calculate a distribution of statistics from the generated data to form the null distribution.
+
+##  Hypothesis testing
+
+![](images/infer_hypothesis_testing.PNG){fig-align="center" width="400"}
+
+
+## Hypothesis testing 
+
+ - **Illustrative example**: A researcher conducted a population based study in XYZ place and found that the mean birth weight of infants is 2500g. 
+ 
+ - Looking at the birth weight dataset, the researcher is curious as to whether the mean birth weight in this data set is similar to XYZ population. 
+
+ - In other words, the null hypothesis $H_0: \mu _{bwt} = 2800 g$
+
+## Step1: Calculate the observed statistic {.unnumbered}
+
+Test statistic value is calculated.
+
+```{r}
+observed_statistic <- df %>%
+  infer::specify(response = bwt) %>%
+  infer::calculate(stat = "mean")
+observed_statistic |> pull()
+```
+
+## estimate the difference
+
+## Step2: Generate the null distribution {.unnumbered}
+
+A simulated distribution is generated, assuming the average birth weight in the population is 2800 gms.
+
+```{r}
+null_dist_1_sample <- df %>%
+  specify(response = bwt) %>%
+  hypothesize(null = "point", # Point for single variable
+              mu = 2750) %>%
+  generate(reps = 9999, 
+           type = "bootstrap") %>%
+  calculate(stat = "mean")
+```
+
+## Step 3 comparing the test value
+
+Remember the test_statistic is `r round(observed_statistic |> pull(), 2)` gms.
+
+```{r}
+null_dist_1_sample |> 
+  ggplot() +
+  geom_histogram(aes(x = stat), alpha = 0.5) +
+  geom_vline(xintercept = (observed_statistic |> pull()))
+
+
+```
+
+## Recap
+  
+::: {style="text-align:right" style="font-size:150%"}
+**Thank You**
+:::
+

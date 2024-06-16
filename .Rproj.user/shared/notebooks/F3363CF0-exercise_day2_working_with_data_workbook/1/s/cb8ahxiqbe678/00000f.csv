@@ -1,0 +1,3 @@
+"0","df <- df |>"
+"0","  mutate(anaemia_cat ="
+"0","           if_else(haemoglobin_level <= 10, ""Present"", ""Absent""))"

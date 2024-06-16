@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Fundamentals of Working with Data</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Dr. Arun Mitra" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Fundamentals of Working with Data
+]
+.subtitle[
+## Data Analysis Using R
+]
+.author[
+### Dr. Arun Mitra
+]
+.institute[
+### AMCHSS, SCTIMST
+]
+
+---
+
+
+
+
+class: inverse, middle
+
+# Outline of the talk
+
+- How to import, and export data from R
+
+- Based on the `tidyverse` approach
+
+- Most optimal workflows for reproducibility and ease of understanding
+
+---
+class:  middle
+
+## Before we get started
+
+- Let us recap once again creating a project in R. 
+
+- It is a best practice to use create a project for each data analysis you are planning to perform. 
+
+- You can create a New Project using the File menu in RStudio.
+
+- Let us create one now!
+
+---
+
+## File paths
+
+Reading and writing files often involves the use of file paths.
+
+A file path is a string of characters that point R and RStudio to the location of the file on your computer. 
+
+These file paths can be a complete location
+
+- Eg: ** `C:/Users/Arun/XYZ.Rmd` **
+
+Or,  just the file name
+
+- Eg: ** `XYZ.Rmd` **
+
+If you pass R a partial file path, R will append it to the end of the file path that leads to your working directory
+
+
+
+---
+
+## Working Directory
+
+
+
+&lt;img src="setwd_here.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+The working directory is the directory where your `.Rproj` file is present in.
+
+`here` package can be very helpful here. (Pun intended!)
+
+---
+
+## `here` is Here!
+
+- Install `here`.
+
+
+```r
+install.packages("here")
+```
+
+
+- Use it.
+
+
+```r
+# library(here)
+here::here()
+```
+
+```
+## [1] "C:/Users/Arun/Dropbox/RIntro_Workshops/RIntro2022_Cohort4/sessions/Working_with_Data_Session"
+```
+
+
+
+```r
+here::here( "sub_folder", "file_i_want.csv")
+```
+
+```
+## [1] "C:/Users/Arun/Dropbox/RIntro_Workshops/RIntro2022_Cohort4/sessions/Working_with_Data_Session/sub_folder/file_i_want.csv"
+```
+
+---
+
+## `here` to the rescue!
+
+&lt;img src="here.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+
+##  Importing data using the RStudio GUI
+
+The RStudio IDE provides an Import Dataset button in the Environment pane, which appears in the top right corner of the IDE by default. 
+
+
+You can use this button to import data that is stored in plain text files as well as in Excel, SAS, SPSS, and Stata files.
+
+
+&lt;img src="import1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## File types in Importing Data
+
+There are different packages to import different types of data. 
+
+* `haven` 
+  - SPSS, Stata, or SAS
+
+* `readxl` 
+  - Excel spreadsheets
+
+* `readr` 
+  - csv, txt, tsv etc.
+
+---
+
+
+&lt;img src="import_dataset_1.png" width="100%" style="display: block; margin: auto 0 auto auto;" /&gt;
+
+
+---
+
+class: inverse
+
+# Exercise
+
+
+1. Import the provided `csv_data.csv` file into the RStudio environment using the method mentioned above.
+
+2. Can you see anything appearing on the RStudio Console pane once you have imported the file
+
+3. Can you see anything appearing on the RStudio Environment pane once you have imported the file?
+
+4. Import the provided `excel.xls` file into the RStudio environment using the method mentioned above
+
+5. Change the sheet to import as well as skip the first row. See the changes happen in the R code syntax in the bottom right pane of the GUI.
+
+
+---
+
+
+## What is an  `.rds` file? 
+
+- `.rds` is a file format native to R for saving compressed content. 
+
+- `.rds` files are not text files and are not human readable in their raw form. 
+
+- Each  `.rds` file contains a single object, which makes it easy to assign its output directly to a single R object.
+
+- This is not necessarily the case for   `.RData` files, which makes `.rds` files safer to use.
+
+
+---
+
+## Saving and Loading a compressed `.rds` file 
+
+Use the `write_rds()` function from the `readr` package to write an `.rds` file. 
+
+Save the previously loaded data, as an `.rds` file using this function. 
+
+You can look at the help menu to know more on the syntax or you can type `?write_rds` in the Console pane. 
+
+Now you can open your file explorer go to your working directory and check if the file has been saved. 
+
+Similarly, you can use the `write_csv()` function from the `readr` package to write a `.csv` file.
+
+
+---
+
+---
+class: inverse, middle
+
+# Tibbles 
+
+&lt;img src="tibble.png" width="60%" style="display: block; margin: auto 0 auto auto;" /&gt;
+
+---
+
+
+# A word on Tibble
+
+
+
+There are a number of differences between tibbles and data.frames. 
+
+To see a full vignette about tibbles and how they differ from data.frame
+
+Please run `vignette("tibble")` in the console and read through that vignette.
+
+---
+
+
+
+# Tibbles vs Dataframes
+
+Some major differences are:
+
+- Input type remains unchanged - `data.frame` changes strings as factors; `tibble` will not
+
+- Variable names remain unchanged - `data.frame` will remove spaces or add “x” before numeric column names. `tibble` will not.
+
+- There are no `row.names()` for a `tibble`
+
+- `tibble` print first ten rows and columns that fit on one screen
+
+---
+
+
+# `tibble()` vs `data.frame()`
+
+&lt;img src="tibble_1.JPG" width="75%" /&gt;
+
+---
+
+
+# `tibble()` vs `data.frame()`
+
+&lt;img src="tibble_vs_dataframe.JPG" width="75%" /&gt;
+
+---
+
+
+
+# Working with Tibbles
+
+You can change `data.frame` objects to a `tibble` using the `as_tibble()` function.
+
+Now that you have imported data into RStudio its a good practice to have a look at the data. 
+
+There are many ways you can do it within RStudio.
+
+
+
+1. Through the Environment pane
+
+2. `View()` function 
+
+3. Simply typing the name of the dataset in the Console
+
+---
+
+# Looking at your data
+
+### Some other things you can do to have  a look at your data are:
+
+1. Checking the class of the dataset using `class()` function
+
+2. Checking the structure of the dataset using `str()` function
+
+
+`class()` and `str()` are not just limited to datasets, they can be used for any R objects.
+
+
+---
+
+class: middle 
+
+### Some additional tips for quickly looking at your data:
+
+- `head()`
+- `tail()`
+- `glimpse()`
+
+---
+
+
+
+class: inverse
+
+# Exercise
+
+
+1. Type the name of the dataset in the console and see what happens?
+
+2. How many rows and columns can you visualize?
+
+3. Now, try the `head()`, `tail()`, and `glimpse()` functions
+
+4. Try to create a tibble manually in RStudio with a numeric, character, and factor variable. Hint: `vignette('tibble')` 
+
+
+
+---
+
+class: middle center
+
+# Questions?
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "4:3"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(RIntro2021.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 50px;
+  height: 50px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

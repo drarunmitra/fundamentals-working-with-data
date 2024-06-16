@@ -1,0 +1,5 @@
+"0","df <-"
+"0","  df |>"
+"0","  mutate(dm_cat ="
+"0","           if_else(fasting_blood_glucose_mg_dl >= 126,"
+"0","                   ""Present"", ""Absent""))"
